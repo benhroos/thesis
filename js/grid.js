@@ -142,7 +142,7 @@ var Grid = function() {
 			}
 			else {
 				btn.button("loading");
-				for (var i = 0; i < 100000; i++) {
+				for (var i = 0; i < 5000; i++) {
 					step(mutationRate);
 				}
 				console.log(numMutations + " mutations occurred");
