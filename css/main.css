@@ -1,0 +1,15 @@
+#grid {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#userInputs {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.show-grid {
+	width: 25px;
+	height: 22.5px;
+}
