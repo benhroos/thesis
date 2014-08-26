@@ -1,5 +1,5 @@
 var Grid = function() {
-	var cells = [], numMutations = 0;
+	var cells = [], colors = [], numMutations = 0;
 
 	var getRandomColor = function() {
 		var red = Math.floor(Math.random() * 256);
