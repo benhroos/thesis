@@ -14,6 +14,7 @@
 	text-align: center;
 }
 
-.show-row {
-
+.grid-table {
+	margin-left: auto;
+	margin-right: auto;
 }
