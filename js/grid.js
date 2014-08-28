@@ -113,6 +113,7 @@ var Grid = function() {
 		randomNeighbor = neighbors[randomNeighborIndex];
 		cells[cellNum].allele = cells[randomNeighbor].allele;
 		cells[cellNum].color = cells[randomNeighbor].color;
+		cells[cellNum].mutationNumber = cells[randomNeighbor].mutationNumber;
 		cells[cellNum].updateHTML(cellNum);
 
 		//New cell will mutate with probability given by mutation rate
@@ -122,6 +123,7 @@ var Grid = function() {
 			cells[cellNum].allele = 1023 + numMutations;
 			cells[cellNum].color = getRandomColor();
 			cells[cellNum].updateHTML(cellNum);
+			cells[cellNum].mutationNumber = numMutations;
 		}
 
 		// console.log("Dead cell: " + cellNum + ", replaced by " + randomNeighbor);
@@ -142,12 +144,36 @@ var Grid = function() {
 			}
 			else {
 				btn.button("loading");
-				for (var i = 0; i < 5000; i++) {
+				for (var i = 0; i < 10000; i++) {
 					step(mutationRate);
 				}
 				console.log(numMutations + " mutations occurred");
 				btn.button("reset");
+
+				//Display mutation numbers for all of the mutated cells
+				for (var i = 0; i < cells.length; i++) {
+					if (cells[i].mutationNumber !== -1) {
+						$("#" + i).html(cells[i].mutationNumber);
+					}
+				}
 			}
+		});
+	};
+
+	var handleResetButton = function() {
+		$("#resetButton").click(function() {
+			cells = [];
+			colors = [];
+			for (var i = 0; i < 128; i++) {
+				colors.push(getRandomColor());
+			}
+
+			$("td").each(function(index) {
+				var colorIndex = index % colors.length;
+				$(this).css("background-color", colors[colorIndex]);
+				cells.push(new cell(colors[colorIndex], index));
+				$(this).html("");
+			});
 		});
 	};
 
@@ -165,9 +191,11 @@ var Grid = function() {
 			var colorIndex = index % colors.length;
 			$(this).css("background-color", colors[colorIndex]);
 			cells.push(new cell(colors[colorIndex], index));
+			$(this).attr("id", index);
 			// $(this).html(index);
 		});
 		handleRunButton();
+		handleResetButton();
 	};
 
 	return {

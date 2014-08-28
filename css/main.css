@@ -1,5 +1,4 @@
 #grid {
-	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
@@ -9,7 +8,12 @@
 	text-align: center;
 }
 
-.show-grid {
+.show-cell {
 	width: 25px;
 	height: 22.5px;
+	text-align: center;
+}
+
+.show-row {
+
 }
