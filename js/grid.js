@@ -18,7 +18,6 @@ var Grid = function() {
 		var cellNum = Math.floor(Math.random() * 1024);
 		cells[cellNum].allele = -1;
 		cells[cellNum].color = "rgb(255, 255, 255)";
-		cells[cellNum].updateHTML(cellNum);
 
 		//Dead cell is randomly replaced by one of it's neighbors
 		var numCellsPerRow = 32, neighbors = [];
@@ -109,12 +108,6 @@ var Grid = function() {
 			lowerRight = lower + 1;
 			neighbors = [upperLeft, upper, upperRight, left, right, lowerLeft, lower, lowerRight];
 		}
-		randomNeighborIndex = Math.floor(Math.random() * neighbors.length);
-		randomNeighbor = neighbors[randomNeighborIndex];
-		cells[cellNum].allele = cells[randomNeighbor].allele;
-		cells[cellNum].color = cells[randomNeighbor].color;
-		cells[cellNum].mutationNumber = cells[randomNeighbor].mutationNumber;
-		cells[cellNum].updateHTML(cellNum);
 
 		//New cell will mutate with probability given by mutation rate
 		var rand = Math.random();
@@ -122,42 +115,59 @@ var Grid = function() {
 			numMutations++;
 			cells[cellNum].allele = 1023 + numMutations;
 			cells[cellNum].color = getRandomColor();
-			cells[cellNum].updateHTML(cellNum);
 			cells[cellNum].mutationNumber = numMutations;
 		}
+		else {
+			randomNeighborIndex = Math.floor(Math.random() * neighbors.length);
+			randomNeighbor = neighbors[randomNeighborIndex];
+			cells[cellNum].allele = cells[randomNeighbor].allele;
+			cells[cellNum].color = cells[randomNeighbor].color;
+			cells[cellNum].mutationNumber = cells[randomNeighbor].mutationNumber;
+		}
+	};
 
-		// console.log("Dead cell: " + cellNum + ", replaced by " + randomNeighbor);
+	var drawGrid = function() {
+		// var needABreakpointHere;
+		for (var i = 0; i < 1024; i++) {
+			cells[i].updateHTML(i);
+		}
+		// alert("interval timer");
 	};
 
 	var handleRunButton = function() {
 		$("#runSimulationButton").click(function() {
-			var btn = $(this);
-			var mutationRate = $("#mutationRate").val();
-			if (mutationRate === null || mutationRate === "") {
-				alert("Please enter a mutation rate");
-			}
-			else if (isNaN(mutationRate)) {
-				alert("Mutation rate must be numeric");
-			}
-			else if (mutationRate > 1 || mutationRate < 0) {
-				alert("Mutation rate must be between 0 and 1");
-			}
-			else {
-				btn.button("loading");
-				for (var i = 0; i < 10000; i++) {
-					step(mutationRate);
-				}
-				console.log(numMutations + " mutations occurred");
-				btn.button("reset");
+			runSimulation();
+		});
+	};
 
-				//Display mutation numbers for all of the mutated cells
-				for (var i = 0; i < cells.length; i++) {
-					if (cells[i].mutationNumber !== -1) {
-						$("#" + i).html(cells[i].mutationNumber);
-					}
-				}
+	var handleEnterKey = function() {
+		$(document).keypress(function(e) {
+			if(e.which === 13) {
+				runSimulation();
 			}
 		});
+	};
+
+	var runSimulation = function() {
+		var mutationRate = $("#mutationRate").val();
+		var numIterations = $("#numIterations").val();
+		if (mutationRate === null || mutationRate === "") {
+			alert("Please enter a mutation rate");
+		}
+		else if (isNaN(mutationRate)) {
+			alert("Mutation rate must be numeric");
+		}
+		else if (mutationRate > 1 || mutationRate < 0) {
+			alert("Mutation rate must be between 0 and 1");
+		}
+		else {
+			for (var i = 0; i < numIterations; i++) {
+				step(mutationRate);
+			}
+			console.log(numMutations + " mutations occurred");
+		}
+		drawGrid();	
+		// clearInterval(gridTimer);
 	};
 
 	var handleResetButton = function() {
@@ -178,6 +188,7 @@ var Grid = function() {
 	};
 
 	var init = function() {
+		// var gridTimer = setInterval(function(){drawGrid()}, 3000);
 		var gridRowHTML = $("#grid").html();
 		for (var i = 0; i < 31; i++) {
 			$("#grid").append(gridRowHTML);
@@ -196,6 +207,8 @@ var Grid = function() {
 		});
 		handleRunButton();
 		handleResetButton();
+		handleEnterKey();
+		$("#mutationRate").focus();
 	};
 
 	return {
