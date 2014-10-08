@@ -1,5 +1,5 @@
 var Grid = function() {
-	var cells = [], colors = [], numMutations = 0;
+	var cells = [], colors = [], stateCapture = [], numMutations = 0, simulation, mutationRate = 0;
 
 	var getRandomColor = function() {
 		var red = Math.floor(Math.random() * 256);
@@ -127,54 +127,98 @@ var Grid = function() {
 	};
 
 	var drawGrid = function() {
-		// var needABreakpointHere;
 		for (var i = 0; i < 1024; i++) {
 			cells[i].updateHTML(i);
 		}
-		// alert("interval timer");
+		// $("#timer").append(".");
 	};
 
-	var handleRunButton = function() {
-		$("#runSimulationButton").click(function() {
-			runSimulation();
+	var handleStartButton = function() {
+		var numIntervals = 0;
+		$("#startSimulationButton").click(function() {
+			mutationRate = $("#mutationRate").val();
+			if (mutationRate === null || mutationRate === "") {
+				alert("Please enter a mutation rate");
+			}
+			else if (isNaN(mutationRate)) {
+				alert("Mutation rate must be numeric");
+			}
+			else if (mutationRate > 1 || mutationRate < 0) {
+				alert("Mutation rate must be between 0 and 1");
+			}
+			else {
+				simulation = setInterval(function() {
+					runSimulation();
+					drawGrid();
+					numIntervals++;
+					if (numIntervals == 50) {
+						for (var i = 0; i < cells.length; i++) {
+							stateCapture.push(new cell(cells[i].color, i));
+						}
+						alert("Captured state");
+					}
+				}, 200);
+			}
 		});
 	};
 
 	var handleEnterKey = function() {
 		$(document).keypress(function(e) {
 			if(e.which === 13) {
-				runSimulation();
+				mutationRate = $("#mutationRate").val();
+				if (mutationRate === null || mutationRate === "") {
+					alert("Please enter a mutation rate");
+				}
+				else if (isNaN(mutationRate)) {
+					alert("Mutation rate must be numeric");
+				}
+				else if (mutationRate > 1 || mutationRate < 0) {
+					alert("Mutation rate must be between 0 and 1");
+				}
+				else {
+					simulation = setInterval(function() {
+						runSimulation();
+						drawGrid();
+						numIntervals++;
+						if (numIntervals == 50) {
+							for (var i = 0; i < cells.length; i++) {
+								stateCapture.push(new cell(cells[i].color, i));
+							}
+							alert("Captured state");
+						}
+					}, 200);
+				}
 			}
 		});
 	};
 
 	var runSimulation = function() {
-		var mutationRate = $("#mutationRate").val();
-		var numIterations = $("#numIterations").val();
-		if (mutationRate === null || mutationRate === "") {
-			alert("Please enter a mutation rate");
+		for (var i = 0; i < 2000; i++) {
+			step(mutationRate);
 		}
-		else if (isNaN(mutationRate)) {
-			alert("Mutation rate must be numeric");
-		}
-		else if (mutationRate > 1 || mutationRate < 0) {
-			alert("Mutation rate must be between 0 and 1");
-		}
-		else {
-			for (var i = 0; i < numIterations; i++) {
-				step(mutationRate);
+		console.log(numMutations + " mutations occurred");
+	};
+
+	var handleStopButton = function() {
+		$("#stopSimulationButton").click(function() {
+			clearInterval(simulation);
+		});
+	};
+
+	var handleRevertButton = function() {
+		$("#revertButton").click(function() {
+			for (var i = 0; i < 1024; i++) {
+				stateCapture[i].updateHTML(i);
 			}
-			console.log(numMutations + " mutations occurred");
-		}
-		drawGrid();	
-		// clearInterval(gridTimer);
+			alert("Reverted");
+		});
 	};
 
 	var handleResetButton = function() {
 		$("#resetButton").click(function() {
 			cells = [];
 			colors = [];
-			for (var i = 0; i < 128; i++) {
+			for (var count = 0; count < 128; count++) {
 				colors.push(getRandomColor());
 			}
 
@@ -188,13 +232,13 @@ var Grid = function() {
 	};
 
 	var init = function() {
-		// var gridTimer = setInterval(function(){drawGrid()}, 3000);
+		// var gridTimer = setInterval(function(){drawGrid()}, 500);
 		var gridRowHTML = $("#grid").html();
-		for (var i = 0; i < 31; i++) {
+		for (var count = 0; count < 31; count++) {
 			$("#grid").append(gridRowHTML);
 		}
 
-		for (var i = 0; i < 128; i++) {
+		for (var count = 0; count < 128; count++) {
 			colors.push(getRandomColor());
 		}
 
@@ -205,8 +249,10 @@ var Grid = function() {
 			$(this).attr("id", index);
 			// $(this).html(index);
 		});
-		handleRunButton();
+		handleStartButton();
+		handleStopButton();
 		handleResetButton();
+		handleRevertButton();
 		handleEnterKey();
 		$("#mutationRate").focus();
 	};
@@ -215,6 +261,9 @@ var Grid = function() {
 		init: init,
 		getCells: function() {
 			return cells;
+		},
+		getCapture: function() {
+			return stateCapture;
 		}
 	}
 }();

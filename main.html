@@ -21,14 +21,17 @@
 				<div class="form-inline" role="form">
 					<div class="form-group">
 						<input class="form-control" id="mutationRate" placeholder="Enter the mutation rate">
-						<input class="form-control" id="numIterations" placeholder="Enter num iterations">
+						<!--input class="form-control" id="numIterations" placeholder="Enter num iterations"-->
 					</div>
-					<button id="runSimulationButton" type="submit" data-loading-text="Running..." class="btn btn-default">Run Simulation</button>
+					<button id="startSimulationButton" type="submit" data-loading-text="Running..." class="btn btn-default">Start Simulation</button>
+					<button id="stopSimulationButton" type="submit" data-loading-text="Running..." class="btn btn-default">Stop Simulation</button>
 					<button id="resetButton" type="button" class="btn btn-default">Reset Grid</button>
+					<button id="revertButton" type="button" class="btn btn-default">Revert Grid to Capture</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!--p id="timer">Timer:</p-->
 	<div id="grid" class="col-md-8 col-md-offset-2">
 		<div class="row">
 			<div class="grid-table">
