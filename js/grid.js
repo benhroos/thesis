@@ -1,20 +1,27 @@
 var Grid = function() {
-	var cells = [], colors = [], stateCapture = [], numMutations = 0, simulation, mutationRate = 0;
+	var cells = [];
+	var colors = ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a",
+	"#ffff99", "#b15928", "#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462"];
+	var colorsUsed = 0;
+	var stateCapture = [], numMutations = 0, simulation, mutationRate = 0;
 	var uniqueCells = {}, uniqueMutations = {};
 	var numAlleles;
 	var numAllelesOverTime = [];
 	var numIntervals = 0;
 
 	var getRandomColor = function() {
-		var red = Math.floor(Math.random() * 256);
-		var green = Math.floor(Math.random() * 256);
-		var blue = Math.floor(Math.random() * 256);
+		// var red = Math.floor(Math.random() * 256);
+		// var green = Math.floor(Math.random() * 256);
+		// var blue = Math.floor(Math.random() * 256);
 
-		red = Math.floor((red + 255)/2);
-		green = Math.floor((green + 255)/2);
-		blue = Math.floor((blue + 255)/2);
+		// red = Math.floor((red + 255)/2);
+		// green = Math.floor((green + 255)/2);
+		// blue = Math.floor((blue + 255)/2);
 
-		return "rgb(" + red + "," + green + "," + blue + ")";
+		// return "rgb(" + red + "," + green + "," + blue + ")";
+		var newColor = colors[colorsUsed];
+		colorsUsed++;
+		return newColor;
 	};
 
 	var step = function(mutationRate) {
@@ -189,11 +196,11 @@ var Grid = function() {
 					runSimulation();
 					drawGrid();
 					numIntervals++;
-					if (numIntervals == 50) {
-						for (var i = 0; i < cells.length; i++) {
-							stateCapture.push(new cell(cells[i].color, i));
-						}
-					}
+					// if (numIntervals == 50) {
+					// 	for (var i = 0; i < cells.length; i++) {
+					// 		stateCapture.push(new cell(cells[i].color, i));
+					// 	}
+					// }
 				}, 200);
 			}
 		});
@@ -217,11 +224,11 @@ var Grid = function() {
 						runSimulation();
 						drawGrid();
 						numIntervals++;
-						if (numIntervals == 50) {
-							for (var i = 0; i < cells.length; i++) {
-								stateCapture.push(new cell(cells[i].color, i));
-							}
-						}
+						// if (numIntervals == 50) {
+						// 	for (var i = 0; i < cells.length; i++) {
+						// 		stateCapture.push(new cell(cells[i].color, i));
+						// 	}
+						// }
 					}, 200);
 				}
 			}
@@ -259,9 +266,8 @@ var Grid = function() {
 			}
 
 			$("td").each(function(index) {
-				var colorIndex = index % colors.length;
-				$(this).css("background-color", colors[colorIndex]);
-				cells.push(new cell(colors[colorIndex], index));
+				$(this).css("background-color", getRandomColor());
+				cells.push(new cell(getRandomColor(), index));
 				$(this).html("");
 			});
 		});
@@ -274,17 +280,13 @@ var Grid = function() {
 			$("#grid").append(gridRowHTML);
 		}
 
-		for (var count = 0; count < 128; count++) {
-			colors.push(getRandomColor());
-		}
-
 		var theta = 2048*.001; // Should be 2N*mutationRate
 
 		$("td").each(function(index) {
 			if (index === 0) {
-				var colorIndex = 0;
-				$(this).css("background-color", colors[colorIndex]);
-				cells.push(new cell(colors[colorIndex], index));
+				var color = getRandomColor();
+				$(this).css("background-color", color);
+				cells.push(new cell(color, index));
 				$(this).attr("id", index);
 			}
 			else if (Math.random() < index/(index + theta)) {
@@ -294,9 +296,9 @@ var Grid = function() {
 				$(this).attr("id", cells[cellNum].allele);
 			}
 			else {
-				var colorIndex = index % colors.length;
-				$(this).css("background-color", colors[colorIndex]);
-				cells.push(new cell(colors[colorIndex], index));
+				var color = getRandomColor();
+				$(this).css("background-color", color);
+				cells.push(new cell(color, index));
 				$(this).attr("id", index);
 			}
 		});
