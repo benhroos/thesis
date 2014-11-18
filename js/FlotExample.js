@@ -1,54 +1,33 @@
-$(document).ready(function() {
-    flotExample();
-});
-
-function flotExample() {
-    var numAlleles = [];
-    var numMutations = [];
-    var avgAlleles = [];
-
-    var i;
-    for (i = 0; i < 100; i++) {
-        numAlleles.push([i, i]);
+var AllelePlot = (function() {
+    var plot;
+    function flotExample() {
+        // var numAlleles = [[0, 4], [10, 3], [5, 6], [11, 17], [6, 1], [19, 2]];
+    
+        // plot = $.plot("#alleleTable", [Grid.getNumAllelesOverTime()], {
+        //     xaxis: {
+        //         min: 0,
+        //         max: 100,
+        //         tickSize: 10
+        //     },
+        //     yaxis: {
+        //         min: 0,
+        //         max: 20,
+        //         tickSize: 2
+        //     }
+        // });
     }
-    for (i = 100; i < 200; i++) {
-        numMutations.push([i, i]);
-    }
-    for (i = 200; i < 300; i++) {
-        avgAlleles.push([i, i]);
+
+    function updatePlot() {
+        // plot.setData([Grid.getNumAllelesOverTime()]);
+        // plot.setupGrid();
+        // plot.draw();
     }
 
-    $.plot(
-    $("#alleleTable"), [{
-        label: 'Number of alleles',
-        data: numAlleles,
-        lines: {
-            show: true
+    return {
+        initPlot: flotExample,
+        update: updatePlot,
+        getPlot: function() {
+            return plot;
         }
-    }, {
-        label: 'Number of mutations',
-        data: numMutations,
-        lines: {
-            show: true
-        }
-    }, {
-        label: 'Average number of alleles',
-        data: avgAlleles,
-        lines: {
-            show: true
-        } 
-    }],
-        {
-            xaxis: {
-                min: 0,
-                max: 300,
-                tickSize: 50
-            },
-            yaxis: {
-                min: 0,
-                max: 300,
-                tickSize: 100
-            }
-        }
-    );
-}
+    }
+})();

@@ -2,6 +2,8 @@ var Grid = function() {
 	var cells = [], colors = [], stateCapture = [], numMutations = 0, simulation, mutationRate = 0;
 	var uniqueCells = {}, uniqueMutations = {};
 	var numAlleles;
+	var numAllelesOverTime = [];
+	var numIntervals = 0;
 
 	var getRandomColor = function() {
 		var red = Math.floor(Math.random() * 256);
@@ -142,6 +144,9 @@ var Grid = function() {
 		}
 		$("#numAlleles").html("Number of alleles: " + numAlleles);
 		$("#numMutations").html("Number of mutations: " + numMutations);
+
+		numAllelesOverTime.push([numIntervals, numAlleles]);
+		AllelePlot.update();
 	};
 
 	var generateStatistics = function() {
@@ -164,11 +169,10 @@ var Grid = function() {
 		$("#numAlleles").html("Number of alleles: " + numAlleles);
 		$("#numMutations").html("Number of mutations: " + numMutations);
 		$("#numActiveMutations").html("Active mutations: " + numActiveMutations);
-		console.log(numAlleles);
+		// console.log(numAlleles);
 	};
 
 	var handleStartButton = function() {
-		var numIntervals = 0;
 		$("#startSimulationButton").click(function() {
 			mutationRate = $("#mutationRate").val();
 			if (mutationRate === null || mutationRate === "") {
@@ -189,7 +193,6 @@ var Grid = function() {
 						for (var i = 0; i < cells.length; i++) {
 							stateCapture.push(new cell(cells[i].color, i));
 						}
-						alert("Captured state");
 					}
 				}, 200);
 			}
@@ -198,7 +201,6 @@ var Grid = function() {
 
 	var handleEnterKey = function() {
 		$(document).keypress(function(e) {
-			var numIntervals = 0;
 			if(e.which === 13) {
 				mutationRate = $("#mutationRate").val();
 				if (mutationRate === null || mutationRate === "") {
@@ -219,7 +221,6 @@ var Grid = function() {
 							for (var i = 0; i < cells.length; i++) {
 								stateCapture.push(new cell(cells[i].color, i));
 							}
-							alert("Captured state");
 						}
 					}, 200);
 				}
@@ -231,7 +232,7 @@ var Grid = function() {
 		for (var i = 0; i < 2000; i++) {
 			step(mutationRate);
 		}
-		console.log(numMutations + " mutations occurred");
+		// console.log(numMutations + " mutations occurred");
 	};
 
 	var handleStopButton = function() {
@@ -318,6 +319,9 @@ var Grid = function() {
 		stats: generateStatistics,
 		getUniqueAlleles: function() {
 			return uniqueCells;
+		},
+		getNumAllelesOverTime: function() {
+			return numAllelesOverTime;
 		}
 	}
 }();
