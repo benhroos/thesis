@@ -2,7 +2,8 @@ var Grid = function() {
 	var cells = [];
 	var colors = ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a",
 	"#ffff99", "#b15928", "#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462"];
-	var colorsUsed = 0;
+	var mutantColors = ["#6FFF00", "#FF00FF", "#FFFF00", "#4D4DFF", "#FF4105", "#993CF3"];
+	var colorsUsed = 0, mutantColorsUsed = 0;
 	var stateCapture = [], numMutations = 0, simulation, mutationRate = 0;
 	var uniqueCells = {}, uniqueMutations = {};
 	var numAlleles;
@@ -21,19 +22,33 @@ var Grid = function() {
 		// return "rgb(" + red + "," + green + "," + blue + ")";
 		var newColor = colors[colorsUsed];
 		colorsUsed++;
+		if (colorsUsed == 18) {
+			colorsUsed = 0;
+		}
 		return newColor;
+	};
+
+	var getMutantColor = function() {
+		var newMutantColor = mutantColors[mutantColorsUsed];
+		mutantColorsUsed++;
+		if (mutantColorsUsed == 6) {
+			mutantColorsUsed = 0;
+		}
+		return newMutantColor;
 	};
 
 	var step = function(mutationRate) {
 		//Random cell dies
 		var cellNum = Math.floor(Math.random() * 1024);
-		cells[cellNum].allele = -1;
-		cells[cellNum].color = "rgb(0, 0, 255)";
 
 		//Dead cell is randomly replaced by one of it's neighbors
 		var numCellsPerRow = 32, neighbors = [];
 		var upper, lower, left, right, upperLeft, upperRight, lowerLeft, lowerRight;
 		var randomNeighborIndex, randomNeighbor;
+
+		if (cells[cellNum].allele == -1) {
+			return;
+		}
 
 		if (cellNum === 0 || cellNum === 31 || cellNum === 992 || cellNum === 1023) {
 			switch(cellNum) {
@@ -127,12 +142,18 @@ var Grid = function() {
 		if (rand < mutationRate) {
 			numMutations++;
 			cells[cellNum].allele = 1023 + numMutations;
-			cells[cellNum].color = getRandomColor();
+			cells[cellNum].color = getMutantColor();
 			cells[cellNum].mutationNumber = numMutations;
 		}
 		else {
 			randomNeighborIndex = Math.floor(Math.random() * neighbors.length);
 			randomNeighbor = neighbors[randomNeighborIndex];
+			// make sure that it's not a dead cell
+			while (cells[randomNeighbor].allele == -1) {
+				randomNeighborIndex = Math.floor(Math.random() * neighbors.length);
+				randomNeighbor = neighbors[randomNeighborIndex];
+			}
+
 			cells[cellNum].allele = cells[randomNeighbor].allele;
 			cells[cellNum].color = cells[randomNeighbor].color;
 			cells[cellNum].mutationNumber = cells[randomNeighbor].mutationNumber;
@@ -291,8 +312,17 @@ var Grid = function() {
 				cells.push(new cell(color, index));
 				$(this).attr("id", index);
 			}
+			else if (index >= 512 && index <= 543 && index != 528) {
+				var color = "#FFFFFF";
+				$(this).css("background-color", color);
+				cells.push(new cell(color, -1));
+				$(this).attr("id", -1);
+			}
 			else if (Math.random() < index/(index + theta)) {
 				var cellNum = Math.floor(Math.random() * (index - 1));
+				while (cells[cellNum].allele == -1) {
+					cellNum = Math.floor(Math.random() * (index - 1));
+				}
 				$(this).css("background-color", cells[cellNum].color);
 				cells.push(new cell(cells[cellNum].color, cells[cellNum].allele));
 				$(this).attr("id", cells[cellNum].allele);
