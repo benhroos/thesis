@@ -1,5 +1,7 @@
 var Grid = function() {
 	var cells = [], colors = [], stateCapture = [], numMutations = 0, simulation, mutationRate = 0;
+	var uniqueCells = {}, uniqueMutations = {};
+	var numAlleles;
 
 	var getRandomColor = function() {
 		var red = Math.floor(Math.random() * 256);
@@ -17,7 +19,7 @@ var Grid = function() {
 		//Random cell dies
 		var cellNum = Math.floor(Math.random() * 1024);
 		cells[cellNum].allele = -1;
-		cells[cellNum].color = "rgb(255, 255, 255)";
+		cells[cellNum].color = "rgb(0, 0, 255)";
 
 		//Dead cell is randomly replaced by one of it's neighbors
 		var numCellsPerRow = 32, neighbors = [];
@@ -46,8 +48,9 @@ var Grid = function() {
 				// console.log("Corner cell chosen: " + cellNum);
 				upper = 960;
 				upperRight = 961;
-				right = 992;
+				right = 993;
 				neighbors = [upper, upperRight, right];
+				// alert("Gotcha");
 				break;
 
 				case 1023:
@@ -56,6 +59,7 @@ var Grid = function() {
 				upper = 991;
 				left = 1022;
 				neighbors = [upperLeft, upper, left];
+				// alert("Gotcha??");
 				break;
 			}
 		}
@@ -127,10 +131,40 @@ var Grid = function() {
 	};
 
 	var drawGrid = function() {
-		for (var i = 0; i < 1024; i++) {
+		uniqueCells = {}, uniqueMutations = {};
+		numAlleles = 0;
+		for (var i = 0; i < cells.length; i++) {
 			cells[i].updateHTML(i);
+			uniqueCells[cells[i].allele] = true;
 		}
-		// $("#timer").append(".");
+		for (cell in uniqueCells) {
+			numAlleles++;
+		}
+		$("#numAlleles").html("Number of alleles: " + numAlleles);
+		$("#numMutations").html("Number of mutations: " + numMutations);
+	};
+
+	var generateStatistics = function() {
+		var uniqueCells = {};
+		var uniqueMutations = {};
+		var numAlleles = 0;
+		var numActiveMutations = 0;
+		for (var i = 0; i < cells.length; i++) {
+			uniqueCells[cells[i].allele] = true;
+			if (cells[i].allele > 1024) {
+				uniqueMutations[cells[i].allele] = true;
+			}
+		}
+		for (var i in uniqueCells) {
+			numAlleles++;
+		}
+		for (var i in uniqueMutations) {
+			numActiveMutations++;
+		}
+		$("#numAlleles").html("Number of alleles: " + numAlleles);
+		$("#numMutations").html("Number of mutations: " + numMutations);
+		$("#numActiveMutations").html("Active mutations: " + numActiveMutations);
+		console.log(numAlleles);
 	};
 
 	var handleStartButton = function() {
@@ -164,6 +198,7 @@ var Grid = function() {
 
 	var handleEnterKey = function() {
 		$(document).keypress(function(e) {
+			var numIntervals = 0;
 			if(e.which === 13) {
 				mutationRate = $("#mutationRate").val();
 				if (mutationRate === null || mutationRate === "") {
@@ -242,12 +277,27 @@ var Grid = function() {
 			colors.push(getRandomColor());
 		}
 
+		var theta = 2048*.001; // Should be 2N*mutationRate
+
 		$("td").each(function(index) {
-			var colorIndex = index % colors.length;
-			$(this).css("background-color", colors[colorIndex]);
-			cells.push(new cell(colors[colorIndex], index));
-			$(this).attr("id", index);
-			// $(this).html(index);
+			if (index === 0) {
+				var colorIndex = 0;
+				$(this).css("background-color", colors[colorIndex]);
+				cells.push(new cell(colors[colorIndex], index));
+				$(this).attr("id", index);
+			}
+			else if (Math.random() < index/(index + theta)) {
+				var cellNum = Math.floor(Math.random() * (index - 1));
+				$(this).css("background-color", cells[cellNum].color);
+				cells.push(new cell(cells[cellNum].color, cells[cellNum].allele));
+				$(this).attr("id", cells[cellNum].allele);
+			}
+			else {
+				var colorIndex = index % colors.length;
+				$(this).css("background-color", colors[colorIndex]);
+				cells.push(new cell(colors[colorIndex], index));
+				$(this).attr("id", index);
+			}
 		});
 		handleStartButton();
 		handleStopButton();
@@ -264,6 +314,10 @@ var Grid = function() {
 		},
 		getCapture: function() {
 			return stateCapture;
+		},
+		stats: generateStatistics,
+		getUniqueAlleles: function() {
+			return uniqueCells;
 		}
 	}
 }();
