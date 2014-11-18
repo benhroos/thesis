@@ -19,7 +19,7 @@ function flotExample() {
     }
 
     $.plot(
-    $("#placeholder"), [{
+    $("#alleleTable"), [{
         label: 'Number of alleles',
         data: numAlleles,
         lines: {
