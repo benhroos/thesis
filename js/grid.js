@@ -146,7 +146,7 @@ var Grid = function() {
 			cells[i].updateHTML(i);
 			uniqueCells[cells[i].allele] = true;
 		}
-		for (cell in uniqueCells) {
+		for (var cell in uniqueCells) {
 			numAlleles++;
 		}
 		$("#numAlleles").html("Number of alleles: " + numAlleles);
@@ -196,11 +196,12 @@ var Grid = function() {
 					runSimulation();
 					drawGrid();
 					numIntervals++;
-					// if (numIntervals == 50) {
-					// 	for (var i = 0; i < cells.length; i++) {
-					// 		stateCapture.push(new cell(cells[i].color, i));
-					// 	}
-					// }
+					if (numIntervals == 50) {
+						// alert("About to capture state");
+						for (var i = 0; i < cells.length; i++) {
+							stateCapture.push(new cell(cells[i].color, i));
+						}
+					}
 				}, 200);
 			}
 		});
@@ -224,11 +225,12 @@ var Grid = function() {
 						runSimulation();
 						drawGrid();
 						numIntervals++;
-						// if (numIntervals == 50) {
-						// 	for (var i = 0; i < cells.length; i++) {
-						// 		stateCapture.push(new cell(cells[i].color, i));
-						// 	}
-						// }
+						if (numIntervals == 50) {
+							// alert("About to capture state");
+							for (var i = 0; i < cells.length; i++) {
+								stateCapture.push(new cell(cells[i].color, i));
+							}
+						}
 					}, 200);
 				}
 			}
