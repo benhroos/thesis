@@ -260,8 +260,7 @@ var Grid = function() {
 		}
 		$("#numAlleles").html("Number of alleles: " + numAlleles);
 		$("#numMutations").html("Number of mutations: " + numMutations);
-		$("#numActiveMutations").html("Active mutations: " + numActiveMutations);
-		// console.log(numAlleles);
+		$("#numActiveMutations").html("Number of mutations: " + numActiveMutations);
 	};
 
 	var handleStartButton = function() {
@@ -347,16 +346,30 @@ var Grid = function() {
 	var handleResetButton = function() {
 		$("#resetButton").click(function() {
 			cells = [];
-			colors = [];
-			for (var count = 0; count < 128; count++) {
-				colors.push(getRandomColor());
-			}
+			var theta = 2048*.001; // Should be 2N*mutationRate
 
 			$("td").each(function(index) {
-				$(this).css("background-color", getRandomColor());
-				cells.push(new cell(getRandomColor(), index));
-				$(this).html("");
+				if (index === 0) {
+					var color = getRandomColor();
+					$(this).css("background-color", color);
+					cells.push(new cell(color, index));
+				}
+				else if (Math.random() < index/(index + theta)) {
+					var cellNum = Math.floor(Math.random() * (index - 1));
+					while (cells[cellNum].allele == -1) {
+						cellNum = Math.floor(Math.random() * (index - 1));
+					}
+					$(this).css("background-color", cells[cellNum].color);
+					cells.push(new cell(cells[cellNum].color, cells[cellNum].allele));
+				}
+				else {
+					var color = getRandomColor();
+					$(this).css("background-color", color);
+					cells.push(new cell(color, index));
+				}
+				$(this).attr("id", index);
 			});
+			generateStatistics();
 		});
 	};
 
@@ -413,7 +426,7 @@ var Grid = function() {
 		handleRevertButton();
 		handleEnterKey();
 		handleBarrier();
-		$("#mutationRate").focus();
+		generateStatistics();
 	};
 
 	return {
