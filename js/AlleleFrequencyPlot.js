@@ -4,16 +4,22 @@ var AlleleFrequencyPlot = (function() {
         plot = $.plot("#alleleFrequencyPlot", [[]], {
             yaxis: {
                 min: 0,
-                max: 100,
-                tickSize: 10
+                max: 1.,
+                tickSize: .1
             }
         });
     }
 
     function updatePlot(alleleFrequencies) {
-        // plot.setData([alleleFrequencies]);
-        // plot.setupGrid();
-        // plot.draw();
+        var gridLength = alleleFrequencies[0].length;
+        if (gridLength >= 100) {
+            for (var i = 0; i < alleleFrequencies.length; i++) {
+                alleleFrequencies[i] = alleleFrequencies[i].slice(gridLength - 100, gridLength);
+            }
+        }
+        plot.setData(alleleFrequencies);
+        plot.setupGrid();
+        plot.draw();
     }
 
     return {
