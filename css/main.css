@@ -18,3 +18,8 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.grid-table::selection {
+	background-color: Transparent;
+	color: #000;
+}
