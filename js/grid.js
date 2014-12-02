@@ -316,13 +316,12 @@ var Grid = function() {
 					simulation = setInterval(function() {
 						runSimulation();
 						drawGrid();
-						numIntervals++;
-						if (numIntervals == 50) {
-							// alert("About to capture state");
-							for (var i = 0; i < cells.length; i++) {
-								stateCapture.push(new cell(cells[i].color, i));
-							}
-						}
+						// numIntervals++;
+						// if (numIntervals == 50) {
+						// 	for (var i = 0; i < cells.length; i++) {
+						// 		stateCapture.push(new cell(cells[i].color, i));
+						// 	}
+						// }
 					}, 200);
 				}
 			}
@@ -335,14 +334,14 @@ var Grid = function() {
 		}
 	};
 
-	var handleRevertButton = function() {
-		$("#revertButton").click(function() {
-			for (var i = 0; i < 1024; i++) {
-				stateCapture[i].updateHTML(i);
-			}
-			alert("Reverted");
-		});
-	};
+	// var handleRevertButton = function() {
+	// 	$("#revertButton").click(function() {
+	// 		for (var i = 0; i < 1024; i++) {
+	// 			stateCapture[i].updateHTML(i);
+	// 		}
+	// 		alert("Reverted");
+	// 	});
+	// };
 
 	var handleResetButton = function() {
 		$("#resetButton").click(function() {
