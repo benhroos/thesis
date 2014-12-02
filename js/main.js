@@ -1,4 +1,5 @@
 $(document).ready(function() {
 	Grid.init();
-	AllelePlot.initPlot();
+	NumAllelesPlot.initPlot();
+	AlleleFrequencyPlot.initPlot();
 });

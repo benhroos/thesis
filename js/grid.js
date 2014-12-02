@@ -9,17 +9,14 @@ var Grid = function() {
 	var numAlleles;
 	var numAllelesOverTime = [];
 	var numIntervals = 0;
+	var alleleFrequencies = [];
+	var allele0 = [], allele1 = [], allele2 = [], allele3 = [], allele4 = [], allele5 = [], allele6 = [], allele7 = [],
+		allele8 = []; allele9 = [], allele10 = [], allele11 = [], allele12 = [], allele13 = [], allele14 = [],
+		allele15 = [], allele16 = [];
+	var alleleFrequencies = [allele0, allele1, allele2, allele3, allele4, allele5, allele6, allele7, allele8, allele9,
+		allele10, allele11, allele12, allele13, allele14, allele15, allele16];
 
 	var getRandomColor = function() {
-		// var red = Math.floor(Math.random() * 256);
-		// var green = Math.floor(Math.random() * 256);
-		// var blue = Math.floor(Math.random() * 256);
-
-		// red = Math.floor((red + 255)/2);
-		// green = Math.floor((green + 255)/2);
-		// blue = Math.floor((blue + 255)/2);
-
-		// return "rgb(" + red + "," + green + "," + blue + ")";
 		var newColor = colors[colorsUsed];
 		colorsUsed++;
 		if (colorsUsed == 18) {
@@ -149,9 +146,13 @@ var Grid = function() {
 			randomNeighborIndex = Math.floor(Math.random() * neighbors.length);
 			randomNeighbor = neighbors[randomNeighborIndex];
 			// make sure that it's not a dead cell
-			while (cells[randomNeighbor].allele == -1) {
+			var maxAttempts = 0;
+			while (cells[randomNeighbor].allele == -1 || cells[randomNeighbor].allele == -2) {
+				if (maxAttempts == 20)
+					return
 				randomNeighborIndex = Math.floor(Math.random() * neighbors.length);
 				randomNeighbor = neighbors[randomNeighborIndex];
+				maxAttempts++;
 			}
 
 			cells[cellNum].allele = cells[randomNeighbor].allele;
@@ -163,18 +164,81 @@ var Grid = function() {
 	var drawGrid = function() {
 		uniqueCells = {}, uniqueMutations = {};
 		numAlleles = 0;
+		var numOccurrences;
 		for (var i = 0; i < cells.length; i++) {
 			cells[i].updateHTML(i);
 			uniqueCells[cells[i].allele] = true;
 		}
+		var index = 0;
 		for (var cell in uniqueCells) {
+			numOccurrences = 0;
+			for (var i = 0; i < cells.length; i++) {
+				if (cell == cells[i].allele) {
+					numOccurrences++;
+				}
+			}
+			switch(index) {
+				case 0:
+					allele0.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 1:
+					allele1.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 2:
+					allele2.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 3:
+					allele3.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 4:
+					allele4.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 5:
+					allele5.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 6:
+					allele6.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 7:
+					allele7.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 8:
+					allele8.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 9:
+					allele9.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 10:
+					allele10.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 11:
+					allele11.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 12:
+					allele12.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 13:
+					allele13.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 14:
+					allele14.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 15:
+					allele15.push([numIntervals, numOccurrences/1024]);
+					break;
+				case 16:
+					allele16.push([numIntervals, numOccurrences/1024]);
+					break;
+			}
 			numAlleles++;
+			index++;
 		}
 		$("#numAlleles").html("Number of alleles: " + numAlleles);
 		$("#numMutations").html("Number of mutations: " + numMutations);
 
 		numAllelesOverTime.push([numIntervals, numAlleles]);
-		AllelePlot.update();
+		NumAllelesPlot.update(numAllelesOverTime);
+		AlleleFrequencyPlot.update(alleleFrequencies);
 	};
 
 	var generateStatistics = function() {
@@ -296,6 +360,22 @@ var Grid = function() {
 		});
 	};
 
+	var handleBarrier = function() {
+		$("td").click(function() {
+			var cellNum = $(this).attr("id");
+			if (cells[cellNum].allele !== -1) {
+				cells[cellNum].color = "#FFFFFF";
+				cells[cellNum].allele = -1;
+				cells[cellNum].updateHTML(cellNum);
+			}
+			else {
+				cells[cellNum].allele = -2;
+				cells[cellNum].color = "#000000";
+				cells[cellNum].updateHTML(cellNum);
+			}
+		});
+	};
+
 	var init = function() {
 		// var gridTimer = setInterval(function(){drawGrid()}, 500);
 		var gridRowHTML = $("#grid").html();
@@ -310,13 +390,11 @@ var Grid = function() {
 				var color = getRandomColor();
 				$(this).css("background-color", color);
 				cells.push(new cell(color, index));
-				$(this).attr("id", index);
 			}
 			else if (index >= 512 && index <= 543 && index != 528) {
 				var color = "#FFFFFF";
 				$(this).css("background-color", color);
 				cells.push(new cell(color, -1));
-				$(this).attr("id", -1);
 			}
 			else if (Math.random() < index/(index + theta)) {
 				var cellNum = Math.floor(Math.random() * (index - 1));
@@ -325,20 +403,20 @@ var Grid = function() {
 				}
 				$(this).css("background-color", cells[cellNum].color);
 				cells.push(new cell(cells[cellNum].color, cells[cellNum].allele));
-				$(this).attr("id", cells[cellNum].allele);
 			}
 			else {
 				var color = getRandomColor();
 				$(this).css("background-color", color);
 				cells.push(new cell(color, index));
-				$(this).attr("id", index);
 			}
+			$(this).attr("id", index);
 		});
 		handleStartButton();
 		handleStopButton();
 		handleResetButton();
 		handleRevertButton();
 		handleEnterKey();
+		handleBarrier();
 		$("#mutationRate").focus();
 	};
 
@@ -353,9 +431,6 @@ var Grid = function() {
 		stats: generateStatistics,
 		getUniqueAlleles: function() {
 			return uniqueCells;
-		},
-		getNumAllelesOverTime: function() {
-			return numAllelesOverTime;
 		}
 	}
 }();
