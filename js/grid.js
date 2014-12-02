@@ -391,11 +391,6 @@ var Grid = function() {
 				$(this).css("background-color", color);
 				cells.push(new cell(color, index));
 			}
-			else if (index >= 512 && index <= 543 && index != 528) {
-				var color = "#FFFFFF";
-				$(this).css("background-color", color);
-				cells.push(new cell(color, -1));
-			}
 			else if (Math.random() < index/(index + theta)) {
 				var cellNum = Math.floor(Math.random() * (index - 1));
 				while (cells[cellNum].allele == -1) {
