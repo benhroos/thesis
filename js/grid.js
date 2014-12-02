@@ -364,13 +364,14 @@ var Grid = function() {
 		$("td").click(function() {
 			var cellNum = $(this).attr("id");
 			if (cells[cellNum].allele !== -1) {
-				cells[cellNum].color = "#FFFFFF";
+				cells[cellNum].color = "#000000";
 				cells[cellNum].allele = -1;
+				cells[cellNum].mutationNumber = -1;
 				cells[cellNum].updateHTML(cellNum);
 			}
 			else {
 				cells[cellNum].allele = -2;
-				cells[cellNum].color = "#000000";
+				cells[cellNum].color = "#FFFFFF";
 				cells[cellNum].updateHTML(cellNum);
 			}
 		});
