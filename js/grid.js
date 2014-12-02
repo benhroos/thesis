@@ -264,29 +264,37 @@ var Grid = function() {
 	};
 
 	var handleStartButton = function() {
-		$("#startSimulationButton").click(function() {
-			mutationRate = $("#mutationRate").val();
-			if (mutationRate === null || mutationRate === "") {
-				alert("Please enter a mutation rate");
-			}
-			else if (isNaN(mutationRate)) {
-				alert("Mutation rate must be numeric");
-			}
-			else if (mutationRate > 1 || mutationRate < 0) {
-				alert("Mutation rate must be between 0 and 1");
-			}
-			else {
-				simulation = setInterval(function() {
-					runSimulation();
-					drawGrid();
-					numIntervals++;
-					if (numIntervals == 50) {
-						// alert("About to capture state");
-						for (var i = 0; i < cells.length; i++) {
-							stateCapture.push(new cell(cells[i].color, i));
+		$("#startStopButton").click(function() {
+			if ($(this).html() === "Start Simulation") {
+				$(this).html("Stop Simulation");
+				mutationRate = $("#mutationRate").val();
+				if (mutationRate === null || mutationRate === "") {
+					alert("Please enter a mutation rate");
+				}
+				else if (isNaN(mutationRate)) {
+					alert("Mutation rate must be numeric");
+				}
+				else if (mutationRate > 1 || mutationRate < 0) {
+					alert("Mutation rate must be between 0 and 1");
+				}
+				else {
+					simulation = setInterval(function() {
+						runSimulation();
+						drawGrid();
+						numIntervals++;
+						if (numIntervals == 50) {
+							// alert("About to capture state");
+							for (var i = 0; i < cells.length; i++) {
+								stateCapture.push(new cell(cells[i].color, i));
+							}
 						}
-					}
-				}, 200);
+					}, 200);
+				}
+			}
+			else if ($(this).html() === "Stop Simulation") {
+				$(this).html("Start Simulation");
+				clearInterval(simulation);
+				generateStatistics();
 			}
 		});
 	};
@@ -325,13 +333,6 @@ var Grid = function() {
 		for (var i = 0; i < 2000; i++) {
 			step(mutationRate);
 		}
-		// console.log(numMutations + " mutations occurred");
-	};
-
-	var handleStopButton = function() {
-		$("#stopSimulationButton").click(function() {
-			clearInterval(simulation);
-		});
 	};
 
 	var handleRevertButton = function() {
