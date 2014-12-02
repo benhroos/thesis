@@ -421,9 +421,7 @@ var Grid = function() {
 			$(this).attr("id", index);
 		});
 		handleStartButton();
-		handleStopButton();
 		handleResetButton();
-		handleRevertButton();
 		handleEnterKey();
 		handleBarrier();
 		generateStatistics();
