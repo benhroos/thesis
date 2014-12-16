@@ -12,8 +12,7 @@ var Grid = function() {
 	var allele0 = [], allele1 = [], allele2 = [], allele3 = [], allele4 = [], allele5 = [], allele6 = [], allele7 = [],
 		allele8 = [], allele9 = [], allele10 = [], allele11 = [], allele12 = [], allele13 = [], allele14 = [],
 		allele15 = [], allele16 = [];
-	var alleleFrequencies = [allele0, allele1, allele2, allele3, allele4, allele5, allele6, allele7, allele8, allele9,
-		allele10, allele11, allele12, allele13, allele14, allele15, allele16];
+	var alleleFrequencies = [];
 	var numBarriers = 0;
 
 	var getRandomColor = function() {
@@ -184,59 +183,63 @@ var Grid = function() {
 			if (!alleleFound) {
 				uniqueCells[cells] = false;
 			}
-			switch (index) {
-				case 0:
-					alleleFrequencies[0].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 1:
-					alleleFrequencies[1].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 2:
-					alleleFrequencies[2].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 3:
-					alleleFrequencies[3].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 4:
-					alleleFrequencies[4].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 5:
-					alleleFrequencies[5].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 6:
-					alleleFrequencies[6].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 7:
-					alleleFrequencies[7].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 8:
-					alleleFrequencies[8].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 9:
-					alleleFrequencies[9].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 10:
-					alleleFrequencies[10].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 11:
-					alleleFrequencies[11].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 12:
-					alleleFrequencies[12].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 13:
-					alleleFrequencies[13].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 14:
-					alleleFrequencies[14].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 15:
-					alleleFrequencies[15].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
-				case 16:
-					alleleFrequencies[16].push([numIntervals, numOccurrences/(1024-numBarriers)]);
-					break;
+			if (typeof(alleleFrequencies[index]) == "undefined") {
+				alleleFrequencies.push([]);
 			}
+			alleleFrequencies[index].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// switch (index) {
+			// 	case 0:
+			// 		alleleFrequencies[0].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 1:
+			// 		alleleFrequencies[1].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 2:
+			// 		alleleFrequencies[2].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 3:
+			// 		alleleFrequencies[3].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 4:
+			// 		alleleFrequencies[4].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 5:
+			// 		alleleFrequencies[5].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 6:
+			// 		alleleFrequencies[6].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 7:
+			// 		alleleFrequencies[7].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 8:
+			// 		alleleFrequencies[8].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 9:
+			// 		alleleFrequencies[9].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 10:
+			// 		alleleFrequencies[10].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 11:
+			// 		alleleFrequencies[11].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 12:
+			// 		alleleFrequencies[12].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 13:
+			// 		alleleFrequencies[13].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 14:
+			// 		alleleFrequencies[14].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 15:
+			// 		alleleFrequencies[15].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// 	case 16:
+			// 		alleleFrequencies[16].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			// 		break;
+			// }
 			if (alleleFound) {
 				numAlleles++;
 			}
