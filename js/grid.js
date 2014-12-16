@@ -397,21 +397,7 @@ var Grid = function() {
 
 	var handleBarrier = function() {
 		$("td").mousedown(function() {
-			var cellNum = $(this).attr("id");
-			if (cells[cellNum].allele !== -1) {
-				cells[cellNum].color = "#000000";
-				cells[cellNum].allele = -1;
-				cells[cellNum].mutationNumber = -1;
-				cells[cellNum].updateHTML(cellNum);
-				numBarriers++;
-			}
-			else {
-				cells[cellNum].allele = -2;
-				cells[cellNum].color = "#FFFFFF";
-				cells[cellNum].updateHTML(cellNum);
-				numBarriers--;
-			}
-			$("td").mouseover(function() {
+			if (!event.shiftKey) {
 				var cellNum = $(this).attr("id");
 				if (cells[cellNum].allele !== -1) {
 					cells[cellNum].color = "#000000";
@@ -426,7 +412,55 @@ var Grid = function() {
 					cells[cellNum].updateHTML(cellNum);
 					numBarriers--;
 				}
-			});
+				$("td").mouseover(function() {
+					if (!event.shiftKey) {
+						var cellNum = $(this).attr("id");
+						if (cells[cellNum].allele !== -1) {
+							cells[cellNum].color = "#000000";
+							cells[cellNum].allele = -1;
+							cells[cellNum].mutationNumber = -1;
+							cells[cellNum].updateHTML(cellNum);
+							numBarriers++;
+						}
+						else {
+							cells[cellNum].allele = -2;
+							cells[cellNum].color = "#FFFFFF";
+							cells[cellNum].updateHTML(cellNum);
+							numBarriers--;
+						}
+					}
+				});
+			}
+		});
+		$("td").mouseup(function() {
+			$("td").unbind("mouseover");
+		});
+	};
+
+	var handleForcedMutation = function() {
+		$("td").mousedown(function(event) {
+			if (event.shiftKey) {
+				var cellNum = $(this).attr("id");
+
+				numMutations++;
+				var newAllele = 1023 + numMutations;
+				var newMutantColor = getMutantColor();
+				cells[cellNum].allele = newAllele;
+				cells[cellNum].color = newMutantColor;
+				cells[cellNum].mutationNumber = numMutations;
+				cells[cellNum].updateHTML(cellNum);
+				
+				$("td").mouseover(function(event) {
+					if (event.shiftKey) {
+						var cellNum = $(this).attr("id");
+
+						cells[cellNum].allele = newAllele;
+						cells[cellNum].color = newMutantColor;
+						cells[cellNum].mutationNumber = numMutations;
+						cells[cellNum].updateHTML(cellNum);
+					}
+				});
+			}
 		});
 		$("td").mouseup(function() {
 			$("td").unbind("mouseover");
@@ -464,6 +498,7 @@ var Grid = function() {
 		handleResetButton();
 		handleEnterKey();
 		handleBarrier();
+		handleForcedMutation();
 		generateStatistics();
 	};
 

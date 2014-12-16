@@ -23,3 +23,17 @@
 	background-color: Transparent;
 	color: #000;
 }
+
+td::selection {
+	background-color: Transparent;
+	color: #000;
+}
+
+td {
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
