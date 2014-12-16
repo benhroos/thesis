@@ -2,7 +2,14 @@ var AlleleFrequencyPlot = (function() {
     var plot;
     function init() {
         plot = $.plot("#alleleFrequencyPlot", [[]], {
+            axisLabels: {
+                show: true,
+            },
+            xaxis: {
+                axisLabel: "Number of Generations"
+            },
             yaxis: {
+                axisLabel: "Allele Frequency",
                 min: 0,
                 max: 1.,
                 tickSize: .1

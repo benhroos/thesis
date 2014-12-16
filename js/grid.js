@@ -386,6 +386,7 @@ var Grid = function() {
 			alleleFrequencies = [allele0, allele1, allele2, allele3, allele4, allele5, allele6, allele7, allele8, allele9,
 				allele10, allele11, allele12, allele13, allele14, allele15, allele16];
 			numIntervals = 0;
+			numMutations = 0;
 			numAllelesOverTime = [];
 			NumAllelesPlot.initPlot();
 			AlleleFrequencyPlot.initPlot();

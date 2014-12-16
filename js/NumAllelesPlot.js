@@ -2,7 +2,14 @@ var NumAllelesPlot = (function() {
     var plot;
     function init() {
         plot = $.plot("#numAllelesPlot", [[]], {
+            axisLabels: {
+                show: true,
+            },
+            xaxis: {
+                axisLabel: "Number of Generations",
+            },
             yaxis: {
+                axisLabel: "Number of Alleles",
                 min: 0,
                 max: 16,
                 tickSize: 2
