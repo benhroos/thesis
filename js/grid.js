@@ -440,6 +440,7 @@ var Grid = function() {
 	var handleForcedMutation = function() {
 		$("td").mousedown(function(event) {
 			if (event.shiftKey) {
+				event.preventDefault();
 				var cellNum = $(this).attr("id");
 
 				numMutations++;
