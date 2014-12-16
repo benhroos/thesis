@@ -6,7 +6,7 @@ var AlleleFrequencyPlot = (function() {
                 show: true,
             },
             xaxis: {
-                axisLabel: "Number of Generations"
+                axisLabel: "Generation"
             },
             yaxis: {
                 axisLabel: "Allele Frequency",

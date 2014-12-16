@@ -6,10 +6,10 @@ var NumAllelesPlot = (function() {
                 show: true,
             },
             xaxis: {
-                axisLabel: "Number of Generations",
+                axisLabel: "Generation",
             },
             yaxis: {
-                axisLabel: "Number of Alleles",
+                axisLabel: "Alleles",
                 min: 0,
                 max: 16,
                 tickSize: 2
