@@ -31,7 +31,7 @@ This simulation is designed to demonstrate gene flow in a finite population. Eac
 + Bright neon colors are reserved for cells with mutant alleles
 + You can force a mutation to occur on a cell by clicking on the cell while holding the SHIFT key. If you click and drag, you can force the same mutation to occur in many cells
 
-#### JSON
+#### JSON format
 The JSON format of the grid is as follows:
 { cells: [ {color: "", allele: "", mutationNumber: ""}, {...}, ... ] }
 + The value for color is a CSS hex value

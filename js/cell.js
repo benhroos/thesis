@@ -4,12 +4,12 @@ var cell = function(initialColor, initialAllele) {
 	this.mutationNumber = -1;
 
 	this.updateHTML = function(cellNum) {
-		$($("td")[cellNum]).css("background-color", this.color);
+		$($(".show-cell")[cellNum]).css("background-color", this.color);
 		if (this.mutationNumber !== -1) {
-			$($("td")[cellNum]).html("");
+			$($(".show-cell")[cellNum]).html("");
 		}
 		else {
-			$($("td")[cellNum]).html("");
+			$($(".show-cell")[cellNum]).html("");
 		}
 	};
 }

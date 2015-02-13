@@ -405,7 +405,7 @@ var Grid = function() {
 	};
 
 	var handleBarrier = function() {
-		$("td").mousedown(function() {
+		$(".show-cell").mousedown(function() {
 			if (!event.shiftKey) {
 				var cellNum = $(this).attr("id");
 				if (cells[cellNum].allele !== -1) {
@@ -421,7 +421,7 @@ var Grid = function() {
 					cells[cellNum].updateHTML(cellNum);
 					numBarriers--;
 				}
-				$("td").mouseover(function() {
+				$(".show-cell").mouseover(function() {
 					if (!event.shiftKey) {
 						var cellNum = $(this).attr("id");
 						if (cells[cellNum].allele !== -1) {
@@ -441,8 +441,8 @@ var Grid = function() {
 				});
 			}
 		});
-		$("td").mouseup(function() {
-			$("td").unbind("mouseover");
+		$(".show-cell").mouseup(function() {
+			$(".show-cell").unbind("mouseover");
 			createExportLink();
 		});
 	};
@@ -462,7 +462,7 @@ var Grid = function() {
 	};
 
 	var handleForcedMutation = function() {
-		$("td").mousedown(function(event) {
+		$(".show-cell").mousedown(function(event) {
 			if (event.shiftKey) {
 				event.preventDefault();
 				var cellNum = $(this).attr("id");
@@ -475,7 +475,7 @@ var Grid = function() {
 				cells[cellNum].mutationNumber = numMutations;
 				cells[cellNum].updateHTML(cellNum);
 				
-				$("td").mouseover(function(event) {
+				$(".show-cell").mouseover(function(event) {
 					if (event.shiftKey) {
 						var cellNum = $(this).attr("id");
 
@@ -487,8 +487,8 @@ var Grid = function() {
 				});
 			}
 		});
-		$("td").mouseup(function() {
-			$("td").unbind("mouseover");
+		$(".show-cell").mouseup(function() {
+			$(".show-cell").unbind("mouseover");
 			createExportLink();
 		});
 	};
@@ -507,7 +507,7 @@ var Grid = function() {
 
 		var theta = 2048*.001; // Should be 2N*mutationRate
 
-		$("td").each(function(index) {
+		$(".show-cell").each(function(index) {
 			if (index === 0) {
 				var color = getRandomColor();
 				cells.push(new cell(color, index));
