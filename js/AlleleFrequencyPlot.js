@@ -21,17 +21,20 @@ var AlleleFrequencyPlot = (function() {
     }
 
     function updatePlot(alleleFrequencies) {
-        var gridLength = alleleFrequencies[0].length;
+        var gridLength = alleleFrequencies[0].data.length;
+        var xMin, xMax, maxPan;
         if (gridLength >= 100) {
             // for (var i = 0; i < alleleFrequencies.length; i++) {
                 // alleleFrequencies[i] = alleleFrequencies[i].slice(gridLength - 100, gridLength);
             // }
             xMin = gridLength - 100;
             xMax = gridLength - 1;
+            maxPan = gridLength - 1;
         }
         else {
             xMin = 0;
             xMax = 100;
+            maxPan = 100;
         }
 
         plot = $.plot("#alleleFrequencyPlot", alleleFrequencies, {
@@ -42,13 +45,18 @@ var AlleleFrequencyPlot = (function() {
                 axisLabel: "Generation",
                 min: xMin,
                 max: xMax,
-                tickSize: 10
+                tickSize: 10,
+                panRange: [0, maxPan]
             },
             yaxis: {
                 axisLabel: "Allele Frequency",
                 min: 0,
                 max: 1.,
-                tickSize: .1
+                tickSize: .1,
+                panRange: [0, 1]
+            },
+            pan: {
+                interactive: true
             }
         });
 

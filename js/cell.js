@@ -6,7 +6,7 @@ var cell = function(initialColor, initialAllele) {
 	this.updateHTML = function(cellNum) {
 		$($("td")[cellNum]).css("background-color", this.color);
 		if (this.mutationNumber !== -1) {
-			$($("td")[cellNum]).html("+");
+			$($("td")[cellNum]).html("");
 		}
 		else {
 			$($("td")[cellNum]).html("");

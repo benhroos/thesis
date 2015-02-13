@@ -14,6 +14,8 @@ var Grid = function() {
 		allele15 = [], allele16 = [];
 	var alleleFrequencies = [];
 	var numBarriers = 0;
+	var isRunning = false;
+	var globalNumAlleles = 0;
 
 	var getRandomColor = function() {
 		var newColor = colors[colorsUsed];
@@ -174,19 +176,31 @@ var Grid = function() {
 		for (var cell in uniqueCells) {
 			numOccurrences = 0;
 			var alleleFound = false;
+			var cellColor;
 			for (var i = 0; i < cells.length; i++) {
 				if (cell == cells[i].allele) {
+					cellColor = cells[i].color;
 					numOccurrences++;
 					alleleFound = true;
 				}
 			}
-			if (!alleleFound) {
-				uniqueCells[cells] = false;
-			}
+			// if (!alleleFound) {
+			// 	uniqueCells[cells] = false;
+			// }
+			
+			// in order to have the colors in the allele frequency plot match the colors in the grid,
+			// push an object instead of an array, set the color in the object, then push the
+			// data set below to an array in the object instead of directly to alleleFrequencies
 			if (typeof(alleleFrequencies[index]) == "undefined") {
-				alleleFrequencies.push([]);
+				alleleFrequencies.push({color:cellColor, data:[]});
 			}
-			alleleFrequencies[index].push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			alleleFrequencies[index].data.push([numIntervals, numOccurrences/(1024-numBarriers)]);
+
+			/*
+			alleleFrequency = [ [[1,11],[2,21],[2,30]], [[1,11],[2,21],[2,30]] ]
+			alleleFrequency = [ {color:"#ffffff", data:[[1,11],[2,21],[2,30]]}, {color:"#ffffff", data:[[1,11],[2,21],[2,30]]} ]
+			*/
+
 			// switch (index) {
 			// 	case 0:
 			// 		alleleFrequencies[0].push([numIntervals, numOccurrences/(1024-numBarriers)]);
@@ -270,6 +284,7 @@ var Grid = function() {
 		for (var i in uniqueMutations) {
 			numActiveMutations++;
 		}
+		globalNumAlleles = numAlleles;
 		$("#numAlleles").html("Number of alleles: " + numAlleles);
 		$("#numMutations").html("Number of mutations: " + numMutations);
 		$("#numActiveMutations").html("Number of mutations: " + numActiveMutations);
@@ -277,8 +292,10 @@ var Grid = function() {
 
 	var handleStartButton = function() {
 		$("#startStopButton").click(function() {
-			if ($(this).html() === "Start Simulation") {
-				$(this).html("Pause Simulation");
+			if ($(this).html() === "Start") {
+				$("#exportButton").addClass("disabled");
+				$(this).html("Pause");
+
 				mutationRate = $("#mutationRate").val();
 				if (mutationRate === null || mutationRate === "") {
 					alert("Please enter a mutation rate");
@@ -294,6 +311,7 @@ var Grid = function() {
 						runSimulation();
 						drawGrid();
 						numIntervals++;
+						isRunning = true;
 						// if (numIntervals == 50) {
 						// 	// alert("About to capture state");
 						// 	for (var i = 0; i < cells.length; i++) {
@@ -303,43 +321,14 @@ var Grid = function() {
 					}, 200);
 				}
 			}
-			else if ($(this).html() === "Pause Simulation") {
-				$(this).html("Start Simulation");
+			else if ($(this).html() === "Pause") {
+				$("#exportButton").removeClass("disabled");
+				$(this).html("Start");
+				createExportLink();
+
 				clearInterval(simulation);
+				isRunning = false;
 				generateStatistics();
-			}
-		});
-	};
-
-	var handleEnterKey = function() {
-		$(document).keypress(function(e) {
-			if(e.which === 13) {
-				if ($("#startStopButton").html() === "Start Simulation") {
-					$("#startStopButton").html("Pause Simulation");
-				}
-
-				mutationRate = $("#mutationRate").val();
-				if (mutationRate === null || mutationRate === "") {
-					alert("Please enter a mutation rate");
-				}
-				else if (isNaN(mutationRate)) {
-					alert("Mutation rate must be numeric");
-				}
-				else if (mutationRate > 1 || mutationRate < 0) {
-					alert("Mutation rate must be between 0 and 1");
-				}
-				else {
-					simulation = setInterval(function() {
-						runSimulation();
-						drawGrid();
-						numIntervals++;
-						// if (numIntervals == 50) {
-						// 	for (var i = 0; i < cells.length; i++) {
-						// 		stateCapture.push(new cell(cells[i].color, i));
-						// 	}
-						// }
-					}, 200);
-				}
 			}
 		});
 	};
@@ -384,17 +373,34 @@ var Grid = function() {
 				$(this).attr("id", index);
 			});
 			generateStatistics();
-			allele0 = [], allele1 = [], allele2 = [], allele3 = [], allele4 = [], allele5 = [], allele6 = [], allele7 = [],
-				allele8 = [], allele9 = [], allele10 = [], allele11 = [], allele12 = [], allele13 = [], allele14 = [],
-				allele15 = [], allele16 = [];
-			alleleFrequencies = [allele0, allele1, allele2, allele3, allele4, allele5, allele6, allele7, allele8, allele9,
-				allele10, allele11, allele12, allele13, allele14, allele15, allele16];
+			alleleFrequencies = [];
 			numIntervals = 0;
 			numMutations = 0;
 			numBarriers = 0;
 			numAllelesOverTime = [];
 			NumAllelesPlot.initPlot();
 			AlleleFrequencyPlot.initPlot();
+			createExportLink();
+		});
+	};
+
+	var createExportLink = function() {
+		$("#exportButton").unbind("click");
+		$("#exportButton").click(function() {
+			var returnObj = {
+				cells: cells,
+				numAlleles: globalNumAlleles,
+				numMutations: numMutations
+			};
+			var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(returnObj));
+			window.open("data: " + data);
+		});
+		//$("#exportButton").html("<a id='exportLink' href='data:" + data + "' download='data.json'>Export Grid</a>");
+	};
+
+	var handleExportButton = function() {
+		$("#exportButton").click(function() {
+			
 		});
 	};
 
@@ -437,6 +443,21 @@ var Grid = function() {
 		});
 		$("td").mouseup(function() {
 			$("td").unbind("mouseover");
+			createExportLink();
+		});
+	};
+
+	var handleBarrierTemplate = function() {
+		$("#barrierTemplateButton").click(function() {
+			for (var i = 0; i < 1024; i++) {
+				if (barrierGrid.cells[i].allele == -1) {
+					cells[i].allele = -1;
+					cells[i].color = "#000000";
+					cells[i].mutationNumber = -1;
+					cells[i].updateHTML(i);
+					numBarriers++;
+				}
+			}
 		});
 	};
 
@@ -468,6 +489,7 @@ var Grid = function() {
 		});
 		$("td").mouseup(function() {
 			$("td").unbind("mouseover");
+			createExportLink();
 		});
 	};
 
@@ -498,10 +520,12 @@ var Grid = function() {
 			cells[index].updateHTML(index);
 			$(this).attr("id", index);
 		});
+		createExportLink();
+		handleExportButton();
 		handleStartButton();
 		handleResetButton();
-		handleEnterKey();
 		handleBarrier();
+		handleBarrierTemplate();
 		handleForcedMutation();
 		generateStatistics();
 	};

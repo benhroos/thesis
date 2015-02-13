@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+
+%\usepackage{times} %for Times New Roman, if required
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry} %adjust margins. TODO: hack to fix large top margin
+\usepackage{setspace} %allows doublespacing, onehalfspacing, singlespacing
+\usepackage{enumitem} %for continuing lists
+\usepackage{titling} %for moving the title
+\usepackage[normalem]{ulem} %for underlining
+\usepackage{graphics}
+
+\begin{document}
+
+\begin{spacing}{.4}
+\setlength{\droptitle}{-7em}
+\title{Honors Thesis}
+\author{Ben Roos}
+\maketitle
+\newpage
+\end{spacing}
+
+\begin{spacing}{1.5}
+
+\section*{Table of Contents}
+\begin{enumerate}
+\item Authors and affiliations
+\item Corresponding author
+\item Data deposition
+\item Abstract
+\item Keywords
+\item Introduction
+\item Results
+\item Discussion
+\item Conclusion
+\item Methods
+\item References
+\item Tables
+\item Figures
+
+\end{enumerate}
+\newpage
+
+\section{Introduction}
+\subsection{JavaScript}
+JavaScript is the backbone of modern web applications. For a combinations of reasons, including the constantly improving performance of web browsers, data analyses and simulations with high overhead can be efficiently developed and deployed using JavaScript. In certain contexts, JavaScript implementations may offer significant advantages over other programming languages. First, programs developed using JavaScript are more accessible to everyday users. Most users, regardless of technical background, have experience opening a web browser and running web applications that use JavaScript. As a result, JavaScript may be used to create web applications that are more intuitive, accessible, and portable. Second, JavaScript code is able to run seamlessly on the client side of the application, significantly decreasing the need for server side development. Finally, it is fairly simple to build attractive, modern interfaces using a combination of JavaScript, HTML, and CSS. While many programming languages offer libraries and tools for creating graphical user interfaces, the prevalence of the modern web has led to a propagation of well-supported, reliable, modern libraries for building web applications using JavaScript.
+\subsection{Classrooms}
+For these reasons, JavaScript is a particularly powerful tool for  instructional environments. Simulations, visualizations, and analyses can be easily deployed as a demonstrative aid in classrooms and lecture halls. Using web applications developed using a combination of JavaScript, HTML, and CSS, instructors can demonstrate concepts simply by opening a web browser, and students can further explore the tool by opening it themselves. This level of accessibility makes web applications ideal for exploring and explaining topics with students.
+\subsection{Use Case}
+In this particular use case, a web application powered by JavaScript provides students with a visualization and simulation of gene flow and genetic drift. This application uses a Moran Model to simulate the fluctuation of genetic diversity and allele frequency throughout a population of spatially isolated individuals of a finite population. The goal was to create web site that visually displays a sample population for which users could specify a mutation rate, and then observe genetic drift occurring in the population over many generations.
+
+\section{Results}
+\subsection{Interface}
+The user interface is comprised of a 32 x 32 grid in which each cell represents an individual in the population. In each individual, the simulation is concerned with a particular allele. Each unique allele is represented by a color. Accordingly, each cell in the grid is filled with a color that represents that allele carried by that individual. After running the simulation, users can observe the spread of alleles through the population by observing the change in colors in specific grid cells as subsequent generations replace individuals in the population. The interface includes a text field into which users can specify a mutation rate to be used during the simulation. The interface includes several buttons that control the simulation: one is used to start and stop the simulation, one is used to reset the simulation and randomly generate a new initial population, one is used to apply a template of physical barriers, and one is used to export a JSON file that contains represents the static state of the grid at the most recent generation. Further description of the user interface...
+\subsection{Design}
+Talk about design decisions, like colors selected using ColorBrewer, limitations like not being able to select a really large mutation rate without seeing the same colors repeated, colorblind safety, etc.
+\subsection{Technologies}
+JavaScript, HTML, CSS, jQuery, flot, data URIs, browser compatibility, etc.
+\subsection{Lesson Plan}
+Using this simulation, a lesson plan was developed to help students understand the processes of genetic drift and gene flow. This lesson plan is designed to be used in a lab or recitation environment for students learning about genetics, and is designed to be used in conjunction with the web application.
+
+\section{Conclusion}
+
+\section{Methods}
+\subsection{Moran Model}
+Description of what a Moran Model is and how it was used in this simulation
+
+\end{spacing}
+\end{document}
+

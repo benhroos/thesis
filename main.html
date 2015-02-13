@@ -10,6 +10,7 @@
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/jquery.flot.js"></script>
 	<script src="js/jquery.flot.axislabels.js"></script>
+	<script src="js/jquery.flot.navigate.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<link href="css/main.css" rel="stylesheet">
 	<script src="js/main.js"></script>
@@ -17,33 +18,30 @@
 	<script src="js/grid.js"></script>
 	<script src="js/NumAllelesPlot.js"></script>
 	<script src="js/AlleleFrequencyPlot.js"></script>
+	<script src="js/BarrierTemplate.js"></script>
 </head>
 <body>
-	<div id="userInputs">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="form-inline" role="form">
-					<div class="form-group">
-						<input class="form-control" id="mutationRate" value=0.00001>
-					</div>
-					<button id="startStopButton" type="submit" data-loading-text="Running..." class="btn btn-default">Start Simulation</button>
-					<button id="resetButton" type="button" class="btn btn-default">Reset Grid</button>
-					<!-- <button id="revertButton" type="button" class="btn btn-default">Revert Grid to Capture</button> -->
+	<div id="userInputs" class="row">
+		<div class="col-md-6 col-md-offset-1">
+			<div class="form-inline" role="form">
+				<div class="form-group">
+					<input class="form-control" id="mutationRate" value=0.00001>
 				</div>
+				<button id="startStopButton" type="submit" data-loading-text="Running..." class="btn btn-default">Start</button>
+				<button id="resetButton" type="button" class="btn btn-default">Reset</button>
+				<button id="exportButton" type="button" class="btn btn-default">Export</button>
+				<button id="barrierTemplateButton" type="button" class="btn btn-default">Template</button>
+				<button id="helpButton" type="button" class="btn btn-default">Help</button>
+				<!-- <button id="revertButton" type="button" class="btn btn-default">Revert Grid to Capture</button> -->
 			</div>
 		</div>
+		<div class="col-md-5">
+			<p id="numAlleles" style="display:inline; padding-right:20px;">Number of alleles: 0</p>
+			<p id="numMutations" style="display:inline; padding-right:20px;">Number of mutations: 0</p>
+		</div>
 	</div>
-	<div class="col-md-8 col-md-offset-2">
-		<center>
-			<div class="row">
-				<p id="numAlleles" style="display:inline; padding-right:20px;">Number of alleles: 0</p>
-				<p id="numMutations" style="display:inline; padding-right:20px;">Number of mutations: 0</p>
-			</div>
-		</center>
-		<br>
-	</div>
-	<div id="grid" class="col-md-8 col-md-offset-2">
-		<div class="row">
+	<div class="row">
+		<div id="grid" class="col-md-6 col-md-offset-1">
 			<div class="grid-table">
 				<table>
 					<tr>
@@ -83,14 +81,16 @@
 				</table>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-4 col-md-offset-3" style="margin-top:30px">
-		<h4 style="margin-left:140px; width:400px">Number of Alleles for each Generation</h4>
-		<div id="numAllelesPlot" style="width:500px; height: 300px; margin-left:30px;"></div>
-	</div>
-	<div class="col-md-4 col-md-offset-3" style="margin-top:30px">
-		<h4 style="margin-left:140px; width:400px">Allele Frequency for each Generation</h4>
-		<div id="alleleFrequencyPlot" style="width:500px; height: 300px; margin-left:30px;"></div>
+		<div class="col-md-5">
+			<div class="row">
+				<h4 style="margin-left:140px; width:400px">Number of Alleles for each Generation</h4>
+				<div id="numAllelesPlot" style="width:500px; height: 300px; margin-left:30px;"></div>
+			</div>
+			<div class="row">
+				<h4 style="margin-left:140px; width:400px">Allele Frequency for each Generation</h4>
+				<div id="alleleFrequencyPlot" style="width:500px; height: 300px; margin-left:30px;"></div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
