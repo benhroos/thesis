@@ -353,7 +353,7 @@ var Grid = function() {
 			cells = [];
 			var theta = 2048*.001; // Should be 2N*mutationRate
 
-			$("td").each(function(index) {
+			$(".show-cell").each(function(index) {
 				if (index === 0) {
 					var color = getRandomColor();
 					cells.push(new cell(color, index));

@@ -22,7 +22,7 @@ This simulation is designed to demonstrate gene flow in a finite population. Eac
 	* Export the JSON representation the grid by clicking "Export"
 	* Download the JSON file, and name it BarrierTemplate.js
 	* In BarrierTemplate.js, write "var barrierGrid = " followed by the JSON object
-	* In your local copy of the source code, replace the original coyp of BarrierTemplate.js with your own copy
+	* In your local copy of the source code, replace the original copy of BarrierTemplate.js with your own copy
 	* Now, when you launch the simulation again, press "Template" and you should see your template applied
 
 #### Mutations
