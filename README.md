@@ -1,7 +1,3 @@
-# Ben Roos Thesis Help Page
-
-A Github repository for my Honors Thesis – a genetic simulation programmed and designed with JavaScript, HTML, CSS, jQuery, and Bootstrap
-
 ## About the simulation
 This simulation is designed to demonstrate gene flow in a finite population. Each cell in the grid represents an individual in the population, and its color represents a unique allele. As the simulations runs, you can obverse the allele frequencies in the population shifting as the colors of individual cells change over time.
 
