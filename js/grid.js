@@ -493,6 +493,12 @@ var Grid = function() {
 		});
 	};
 
+	var handleHelpButton = function() {
+		$("#helpButton").click(function() {
+			window.open("https://github.com/benhroos/thesis/blob/master/README.md");
+		});
+	};
+
 	var init = function() {
 		var gridRowHTML = $("#grid").html();
 		for (var count = 0; count < 31; count++) {
@@ -527,6 +533,7 @@ var Grid = function() {
 		handleBarrier();
 		handleBarrierTemplate();
 		handleForcedMutation();
+		handleHelpButton();
 		generateStatistics();
 	};
 
