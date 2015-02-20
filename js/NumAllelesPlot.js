@@ -23,14 +23,12 @@ var NumAllelesPlot = (function() {
     function updatePlot(numAllelesOverTime) {
         var gridLength = numAllelesOverTime.length;
         var xMin, xMax, maxPan;
-        if (gridLength >= 100) {
-            // plot.setData([numAllelesOverTime.slice(gridLength - 100, gridLength)])
+        if (gridLength > 100) {
             xMin = gridLength - 100;
             xMax = gridLength - 1;
             maxPan = gridLength - 1;
         }
         else {
-            // plot.setData([numAllelesOverTime]);
             xMin = 0;
             xMax = 100;
             maxPan = 100;

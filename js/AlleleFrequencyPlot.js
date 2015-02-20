@@ -23,10 +23,7 @@ var AlleleFrequencyPlot = (function() {
     function updatePlot(alleleFrequencies) {
         var gridLength = alleleFrequencies[0].data.length;
         var xMin, xMax, maxPan;
-        if (gridLength >= 100) {
-            // for (var i = 0; i < alleleFrequencies.length; i++) {
-                // alleleFrequencies[i] = alleleFrequencies[i].slice(gridLength - 100, gridLength);
-            // }
+        if (gridLength > 100) {
             xMin = gridLength - 100;
             xMax = gridLength - 1;
             maxPan = gridLength - 1;
