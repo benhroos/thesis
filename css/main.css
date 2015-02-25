@@ -26,6 +26,10 @@
 	color: #000;
 }
 
+.btn:focus {
+	outline: none;
+}
+
 td::selection {
 	background-color: Transparent;
 	color: #000;

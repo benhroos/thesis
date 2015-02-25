@@ -232,10 +232,9 @@ var Grid = function() {
 	var handleStartButton = function() {
 		$("#startStopButton").click(function() {
 			if ($(this).html() === "Start") {
-				$("#exportButton").addClass("disabled");
-				$(this).html("Pause");
 
 				mutationRate = $("#mutationRate").val();
+
 				if (mutationRate === null || mutationRate === "") {
 					alert("Please enter a mutation rate");
 				}
@@ -247,12 +246,15 @@ var Grid = function() {
 				}
 				else {
 					simulation = setInterval(function() {
+						$("#exportButton").addClass("disabled");
+						$("#startStopButton").html("Pause");
 						runSimulation();
 						drawGrid();
 						numIntervals++;
 						isRunning = true;
 					}, 200);
 				}
+
 			}
 			else if ($(this).html() === "Pause") {
 				$("#exportButton").removeClass("disabled");
