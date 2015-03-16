@@ -1,5 +1,5 @@
 ## About the simulation
-This simulation is designed to demonstrate gene flow in a finite population. Each cell in the grid represents an individual in the population, and its color represents a unique allele. As the simulations runs, you can obverse the allele frequencies in the population shifting as the colors of individual cells change over time.
+This simulation is designed to demonstrate genetic drift and gene flow in a finite population. Each cell in the grid represents an individual in the population, and its color represents a unique allele. As the simulations runs, you can obverse the allele frequencies in the population shifting as the colors of individual cells change over time.
 
 ## Running the simulation
 #### Controls
