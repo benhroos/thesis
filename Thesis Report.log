@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  29 JAN 2015 14:34
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  16 MAR 2015 13:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -221,23 +221,116 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3] [4] [5] (./Thesis Report.aux) ) 
+[2]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 39.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 39.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 39.
+ [3]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 52.
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 52.
+ [4]
+[5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--98
+
+ []
+
+[7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 100--109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--109
+
+ []
+
+[9] (./Thesis Report.aux) ) 
 Here is how much of TeX's memory you used:
- 2351 strings out of 493315
- 34572 string characters out of 6137904
- 100226 words of memory out of 5000000
- 5797 multiletter control sequences out of 15000+600000
- 6169 words of font info for 23 fonts, out of 8000000 for 9000
+ 2390 strings out of 493315
+ 35132 string characters out of 6137904
+ 104226 words of memory out of 5000000
+ 5826 multiletter control sequences out of 15000+600000
+ 9261 words of font info for 33 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 37i,6n,23p,1248b,230s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dist/font
-s/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr17.pfb>
-Output written on "Thesis Report.pdf" (5 pages, 47991 bytes).
+ 37i,6n,23p,1229b,230s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2013/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmti12.pfb>
+Output written on "Thesis Report.pdf" (9 pages, 89821 bytes).
 PDF statistics:
- 32 PDF objects out of 1000 (max. 8388607)
- 21 compressed objects within 1 object stream
+ 58 PDF objects out of 1000 (max. 8388607)
+ 40 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
