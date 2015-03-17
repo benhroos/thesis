@@ -426,6 +426,15 @@ var Grid = function() {
 		});
 	};
 
+	var resizePlot = function() {
+		$("#numAllelesPlot").height($("#grid").height()/2.25);
+		$("#alleleFrequencyPlot").height($("#grid").height()/2.25);
+		$(window).resize(function() {
+			$("#numAllelesPlot").height($("#grid").height()/2.25);
+			$("#alleleFrequencyPlot").height($("#grid").height()/2.25);
+		});
+	};
+
 	var init = function() {
 		var gridRowHTML = $("#grid").html();
 		for (var count = 0; count < 31; count++) {
@@ -461,6 +470,7 @@ var Grid = function() {
 		handleBarrierTemplate();
 		handleForcedMutation();
 		handleHelpButton();
+		resizePlot();
 		generateStatistics();
 	};
 

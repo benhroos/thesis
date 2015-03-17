@@ -66,6 +66,9 @@ var NumAllelesPlot = (function() {
         update: updatePlot,
         getPlot: function() {
             return plot;
+        },
+        redrawPlot: function() {
+            plot.draw();
         }
     }
 })();

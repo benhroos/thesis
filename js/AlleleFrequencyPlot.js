@@ -56,10 +56,6 @@ var AlleleFrequencyPlot = (function() {
                 interactive: true
             }
         });
-
-        // plot.setData(alleleFrequencies);
-        // plot.setupGrid();
-        // plot.draw();
     }
 
     return {
