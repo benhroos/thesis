@@ -14,7 +14,7 @@ var AlleleFrequencyPlot = (function() {
             yaxis: {
                 axisLabel: "Allele Frequency",
                 min: 0,
-                max: 1.,
+                max: 1,
                 tickSize: .1
             }
         });
