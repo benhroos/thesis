@@ -247,7 +247,7 @@ var Grid = function() {
 				else {
 					simulation = setInterval(function() {
 						$("#exportButton").addClass("disabled");
-						$("#startStopButton").html("Pause");
+						$("#startStopButton").html("Stop");
 						runSimulation();
 						drawGrid();
 						numIntervals++;
@@ -256,7 +256,7 @@ var Grid = function() {
 				}
 
 			}
-			else if ($(this).html() === "Pause") {
+			else if ($(this).html() === "Stop") {
 				$("#exportButton").removeClass("disabled");
 				$(this).html("Start");
 				createExportLink();
