@@ -191,7 +191,9 @@ var Grid = function() {
 			if (typeof(alleleFrequencies[index]) == "undefined") {
 				alleleFrequencies.push({color:cellColor, data:[]});
 			}
-			alleleFrequencies[index].data.push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			if (numOccurrences != 0) {
+				alleleFrequencies[index].data.push([numIntervals, numOccurrences/(1024-numBarriers)]);
+			}
 
 			if (alleleFound) {
 				numAlleles++;
