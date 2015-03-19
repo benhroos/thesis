@@ -6,7 +6,8 @@
 \usepackage{enumitem} %for continuing lists
 \usepackage{titling} %for moving the title
 \usepackage[normalem]{ulem} %for underlining
-\usepackage{graphics}
+\usepackage{graphicx}
+\graphicspath{{images/}}
 
 \begin{document}
 
@@ -36,7 +37,7 @@ Web development technologies, and in particular the programming language JavaScr
 
 \section{Model}
 \subsection{Population}
-The simulation uses a Moran Model to describe a finite population of 1024 haploid individuals. The simulation tracks a single allele for each individual. This allele is selected independently for each individual, and the simulation uses an infinite alleles model, so the alleles are represented using numbers that begin at 0 and may be infinitely high. Each individual is geographically isolated from others in a grid that is 32 cells long and 32 cells wide. Each individual takes up only one cell, and each cell contains only one individual. Thus, the size of the population will never vary from 1024 at any step of simulation.
+The simulation uses a Moran Model \cite{moran} to describe a finite population of 1024 haploid individuals. The simulation tracks a single allele for each individual. This allele is selected independently for each individual, and the simulation uses an infinite alleles model \cite{moran}, so the alleles are represented using numbers that begin at 0 and may be infinitely high. Each individual is geographically isolated from others in a grid that is 32 cells long and 32 cells wide. Each individual takes up only one cell, and each cell contains only one individual. Thus, the size of the population will never vary from 1024 at any step of simulation.
 \subsection{Initializing the Population}
 When the simulation initializes, a population is randomly generated. The allele number for each individual in the population is selected sequentially, beginning with the upper left corner of the grid, proceeding through each row from left to right, and ending with lower right corner of the grid. The first individual is immediately assigned the allele number 0. With probability $\displaystyle \frac {i}{i + \theta}$, where i is the number of individuals in the population generated so far, and $\theta$ = 2N$\mu$, where N is the number of individuals in the population and $\mu$ is the mutation rate, subsequent individuals in the population will be an assigned an allele number equal to that of a randomly selected member of the population. With probability $\displaystyle 1 - \frac{i}{i + \theta}$, subsequent individuals are assigned to new allele numbers, momentarily becoming the only member of the population with the given allele. Thus, individuals that are assigned alleles earlier in the initialization process are more likely to be assigned new alleles, while individuals that are assigned later in the process are more likely to be assigned an allele from the population.
 \subsection{Simulation}
@@ -45,7 +46,14 @@ At each step of the simulation, a randomly selected individual dies, leaving its
 \section{Implementation}
 \subsection{Design}
 \subsubsection{Layout}
-The application contains three components: a control panel, with which users can control the simulation and its parameters; a grid, on which the simulation is displayed; and graphs, on which statistics regarding the simulation are shown. The layout of the application is shown in Figure xxx.
+The application contains three components: a control panel, with which users can control the simulation and its parameters; a grid, on which the simulation is displayed; and graphs, on which statistics regarding the simulation are shown. The layout of the application is shown in Figure 1.
+
+\begin{figure}[h]
+\caption{Layout of Genie on Page Load}
+\centering
+\includegraphics[scale=0.4]{layout}
+\end{figure}
+
 \subsubsection{Input Paremeters}
 The control panel includes a text field in which users can enter the mutation rate that will be used during the simulation. The default mutation rate is 0.00001, and is displayed in the text field when the page loads.
 \subsubsection{Running the Simulation}
@@ -61,9 +69,16 @@ If users would like to export a JSON representation of the population at a given
 \subsubsection{Graphs}
 Two graphs are displayed to the right of the grid. The upper graph displays the number of unique alleles in the population over time and the lower graph displayed the allele frequencies of each unique allele in the population over time. In the lower graph, the colors associated with each allele match the colors of the simulation. Both of these graphs update in real time as the simulation is running.
 \subsection{Architecture}
-The simulation was written entirely in JavaScript, using jQuery, Bootstrap, and some CSS. In order to logically structure the code, the application was built using the revealing module design pattern. Using this design pattern, each module refers to a distinct portion of the application, and enables each module to contain public and private methods. Similar to a singleton pattern, the revealing module pattern creates a single instance of each JavaScript object. To organize this application's source code, one module was created for each major component: the control panel, the grid, and the two plots. A cell object was also defined to keep track of the allele number and color of each individual in the population. This object was defined using the constructor pattern rather than the module pattern so that many cells could be declared. Unlike the other objects, cell does not act as a singleton, and 1024 instances of cell are created to correspond to each individual.
+The simulation was written entirely in JavaScript, using jQuery, Bootstrap, and some CSS. In order to logically structure the code, the application was built using the revealing module design pattern \cite{js}. Using this design pattern, each module refers to a distinct portion of the application, and enables each module to contain public and private methods. Similar to a singleton pattern, the revealing module pattern creates a single instance of each JavaScript object. To organize this application's source code, one module was created for each major component: the control panel, the grid, and the two plots. A cell object was also defined to keep track of the allele number and color of each individual in the population. This object was defined using the constructor pattern \cite{js} rather than the module pattern so that many cells could be declared. Unlike the other objects, cell does not act as a singleton, and 1024 instances of cell are created to correspond to each individual.
 \subsubsection{Control Panel}
-The control panel refers to the series of buttons and text field above the grid. This method only contains event handlers for each of the buttons and the text field included in the control panel. Thus, it contains an event handler for the ``Start," ``Stop," ``Reset," ``Export," ``Template," and ``Help" buttons. With the exception of the ``Help" button, each of these buttons simply invokes behavior from the Grid module, in addition to conducting basic error handling to ensure that a nonnegative, nonempty value has been entered for the mutation rate. As a result, each event handler simply calls functions defined in that module. The ``Help" button is a simple link to the README hosted on GitHub. The structure of this module is shown in Figure xxx.
+The control panel refers to the series of buttons and text field above the grid. This method only contains event handlers for each of the buttons and the text field included in the control panel. Thus, it contains an event handler for the ``Start," ``Stop," ``Reset," ``Export," ``Template," and ``Help" buttons. With the exception of the ``Help" button, each of these buttons simply invokes behavior from the Grid module, in addition to conducting basic error handling to ensure that a nonnegative, nonempty value has been entered for the mutation rate. As a result, each event handler simply calls functions defined in that module. The ``Help" button is a simple link to the README hosted on GitHub. The structure of this module is shown in Figure 2.
+
+\begin{figure}[h]
+\caption{Class Diagram for Control Panel Module}
+\centering
+\includegraphics[scale=0.5]{control-panel-class-diagram}
+\end{figure}
+
 \subsubsection{Grid}
 The grid refers to the visual representation of the population by the web application. The grid is 32 cells wide and 32 cells long, and is the primary visualization tool of the application. The logic that drives the grid is encapsulated in a JavaScript module in a file named grid.js.\newline
 \newline
@@ -75,22 +90,49 @@ The module contains a method to redraw the grid on the web page. This is done us
 \newline
 The module contains a couple of methods to handle actions that can be performed on the grid. One method is used to create barriers, and uses jQuery event handlers to detect when a user has clicked, or clicked and dragged, on particular cells and behaves accordingly. It contains a very similar method to handle forced mutations.\newline
 \newline
-Finally, the module contains a method to initialize the grid by selecting the founding population in the manner previously described. The structure of this module is shown in Figure xxx.
+Finally, the module contains a method to initialize the grid by selecting the founding population in the manner previously described. The structure of this module is shown in Figure 3.
+
+\begin{figure}[h]
+\caption{Class Diagram for Grid Module}
+\centering
+\includegraphics[scale=0.5]{grid-class-diagram}
+\end{figure}
+
 \subsubsection{Plots}
-There are two modules to control the graphs: one for the graph showing number of alleles and one showing the graph for the allele frequencies. Each module is very similar, and contains a method to initialize the plot when the web page is first loaded and a method to update the plot with new data. The latter method simply redraws the plot with updated axes, updated data, and the ability to pan through the graph. For these graphs, the plotting library flot was used. flot was chosen for the number of graph options and plugins that were available, and for ease of use based on previous familiarity. However, several other plotting libraries would provide similar functionality for the purposes of this web application. The structure of these modules is shown in Figure xxx.
+There are two modules to control the graphs: one for the graph showing number of alleles and one showing the graph for the allele frequencies. Each module is very similar, and contains a method to initialize the plot when the web page is first loaded and a method to update the plot with new data. The latter method simply redraws the plot with updated axes, updated data, and the ability to pan through the graph. For these graphs, the plotting library flot was used. flot was chosen for the number of graph options and plugins that were available, and for ease of use based on previous familiarity. However, several other plotting libraries would provide similar functionality for the purposes of this web application. The structure of these modules is shown in Figure 4.
+
+\begin{figure}[h]
+\caption{Class Diagram for Control Panel Module}
+\centering
+\includegraphics[scale=0.5]{plot-class-diagram}
+\end{figure}
+
 \subsubsection{Cell}
-The cell object has attributes to store the color and allele number of each individual, as well as whether a mutation has occurred. It has an attribute, mutationNumber, that is -1 if a mutation has not occurred for that cell, and is otherwise equal to the number of mutations that had occurred when a mutation occurred for that cell. These attributes are stored in a constructor to instantiate each cell with an allele number. The only method in the object is updateHTML(), which updates the background color of a grid cell when the allele number changes. The structure of this object is shown in Figure xxx.
+The cell object has attributes to store the color and allele number of each individual, as well as whether a mutation has occurred. It has an attribute, mutationNumber, that is -1 if a mutation has not occurred for that cell, and is otherwise equal to the number of mutations that had occurred when a mutation occurred for that cell. These attributes are stored in a constructor to instantiate each cell with an allele number. The only method in the object is updateHTML(), which updates the background color of a grid cell when the allele number changes. The structure of this object is shown in Figure 5.
+
+\begin{figure}[h]
+\caption{Class Diagram for Control Panel Module}
+\centering
+\includegraphics[scale=0.5]{cell-class-diagram}
+\end{figure}
+
 \subsubsection{Sequence of Interactions}
-In a typical sequence of interactions using Genie, the page would first be loaded, which would trigger a call to Grid.init(), which creates 1024 cell objects and stores then in an array that tracks the entire population throughout the simulation. When a user clicks the ``Start" button, the interval timer that powers to simulation begins to run, conducting 2000 steps of the simulation, drawing the grid every 200 milliseconds, and updating the plots. When the user clicks ``Stop," the interval will be cleared and the timer will stop. If the user clicks any combination of the buttons in the control panel, it will simply trigger the event callback defined in the Control Panel module. A sequence diagram demonstrating a typical interaction is shown in Figure xxx.
+In a typical sequence of interactions using Genie, the page would first be loaded, which would trigger a call to Grid.init(), which creates 1024 cell objects and stores then in an array that tracks the entire population throughout the simulation. When a user clicks the ``Start" button, the interval timer that powers to simulation begins to run, conducting 2000 steps of the simulation, drawing the grid every 200 milliseconds, and updating the plots. When the user clicks ``Stop," the interval will be cleared and the timer will stop. If the user clicks any combination of the buttons in the control panel, it will simply trigger the event callback defined in the Control Panel module. A sequence diagram demonstrating a typical interaction is shown in Figure 6.
+
+\begin{figure}[h]
+\caption{Class Diagram for Control Panel Module}
+\centering
+\includegraphics[scale=0.5]{sequence-diagram}
+\end{figure}
 
 \section{Lesson Plan}
 As mentioned previously, this application may be particularly useful for educational uses. Because the application can be run in any modern web browser, on any platform, students should easily be able to access the application and use it to improve their understanding of several concepts from genetics and evolution classes, including genetic drift, founder effect, gene flow, and speciation. Following is a description of some of these concepts.\newline
 \newline
-Genetic drift is the variation of allele frequencies in a population simply due to random sampling. When a small sample is taken from a larger population, the sample is not likely to contain the same allele frequencies, or the same number of alleles, that were represented in the larger population. Essentially, it is unlikely that the small sample is representative of the larger population. Genetic drift has the potential to affect all population, but its effects are especially noteworthy in small population, in which variation caused by sampling is more likely to occur. These variations from sampling can cause the allele frequencies to fluctuate from one generation to the next, particularly in small populations. Because the allelic composition of each generation forms the starting point for the subsequent generation, these random variations in each generation can propagate to significant fluctuations in the allele frequencies of a population over time. Given enough generations, one allele will eventually reach fixation in the population, simply due to random chance. This simulation is particularly suited to demonstrate this phenomenon because the model does not contain any element of fitness. All variations in allele frequency that are observed in the simulation are simply caused by random sampling.\newline
+Genetic drift is the variation of allele frequencies in a population simply due to random sampling \cite{evolution}. When a small sample is taken from a larger population, the sample is not likely to contain the same allele frequencies, or the same number of alleles, that were represented in the larger population. Essentially, it is unlikely that the small sample is representative of the larger population. Genetic drift has the potential to affect all populations, but its effects are especially noteworthy in small population, in which variation caused by sampling is more likely to occur. These variations from sampling can cause the allele frequencies to fluctuate from one generation to the next, particularly in small populations \cite{evolution}. Because the allelic composition of each generation forms the starting point for the subsequent generation, these random variations in each generation can propagate to significant fluctuations in the allele frequencies of a population over time. Given enough generations, one allele will eventually reach fixation in the population, simply due to random chance, even when no element of fitness is present \cite{evolution}. This simulation is particularly suited to demonstrate this phenomenon because the model does not contain any element of fitness. All variations in allele frequency that are observed in the simulation are simply caused by random sampling.\newline
 \newline
-Founder effects are strongly related to genetic drift. When a small subpopulation forms a new population, the allele frequencies in the new founding population may not be representative of the larger population. This is simply caused by random sampling, just like genetic drift. Because the founding population is not likely to have the same allele frequencies as the larger population, the subsequent population is likely to have a genetic makeup that differs from the population from which it was sampled.\newline
+Founder effects are strongly related to genetic drift. When a small subpopulation forms a new population, the allele frequencies in the new founding population may not be representative of the larger population. This is simply caused by random sampling, much like genetic drift. Because the founding population is not likely to have the same allele frequencies as the larger population, the subsequent population is likely to have a genetic makeup that differs from the population from which it was sampled \cite{genAnalysis}.\newline
 \newline
-Gene flow is the migration of individuals between between. When migrating individuals reproduce in their new population, the result is a mixed population, with alleles from both populations playing a role in determining the genetic makeup of the subsequent population. Gene flow, much like genetic drift, has the potential to change the frequency of alleles in the new, mixed population. If two populations start with radically different allele frequencies, the subsequent mixed population will likely have different allele frequencies from either starting population, quickly causing evolutionary change in the populations. Additionally, gene flow can have an equalizing or homogenizing effect on the allele frequencies of the populations involved, causing an overall loss of genetic diversity.\newline
+Gene flow is the migration of individuals between between. When migrating individuals reproduce in their new population, the result is a mixed population, with alleles from both populations playing a role in determining the genetic makeup of the subsequent population. Gene flow, much like genetic drift, has the potential to change the frequency of alleles in the new, mixed population \cite{genAnalysis}. If two populations start with radically different allele frequencies, the subsequent mixed population will likely have different allele frequencies from either starting population, quickly causing evolutionary change in the populations. Additionally, gene flow can have an equalizing or homogenizing effect on the allele frequencies of the populations involved, causing an overall loss of genetic diversity \cite{genAnalysis}.\newline
 \newline
 After explaining the model used by the simulation, students should answer the following questions. Each question is preceded by a learning objective in bold and is followed by a sample answer in italics.
 
@@ -157,16 +199,45 @@ Another substantial challenge was optimizing performance across many browsers an
 \subsection{Future Improvements}
 If development on Genie continues, there are a number of improvements that could be made. In order to give instructors more flexibility in demonstrations of various concepts, it may be useful to provide the ability to use multiple barrier templates, such that a different template could be used to demonstrate different concepts. For example, a user who had a local copy of the simulation running could add a template to demonstrate gene flow and a separate template to demonstrate speciation. These two templates could be named in a JSON formatted template object, and those names could be displayed in unique buttons for each template.\newline
 \newline
+Another simple improvement would be the addition of a color blind safe mode, which would alternate the color scheme such that color blind students would be able to use and understand the application without issue. While this feature is less crucial to the overall usability of the application, it is a relevant improvement given the setting in which the application would be used. If used in a college lecture with hundreds of students, of which a significant portion are male, it could be assumed that potentially dozens of students would have some form of color blindness, making the application less usable for a significant portion of the class \cite{colorblind}. A color blind safe mode would eliminate this concern for those students.
 
 \subsection{Comparison to Other Tools}
-Several other tools currently exist for the purpose of educational instruction in biology. These tools differ greatly in terms of the development technologies used and in terms of usefulness. Genie represents an attempt to develop a unique tool that provides an alternate use case to previously developed tools. One tool that bears some similarities to Genie is RedLynx, a population genetics simulator similarly built using JavaScript. Because RedLynx was developed using JavaScript, and because all computations are subsequently performed on the client, RedLynx is similarly well-suited for use by instructors during lectures and assignments. This implementation allows students to run the simulator in the convenience of a web browser, from any internet-connected computer. RedLynx also similarly tracks the frequency of an allele in a population over many generations, and provide many input parameters that Genie does not use, including the population size, the frequency of the allele, the number of generations, and parameters pertaining to selection. Although Genie does not allow for the customizability that RedLynx provides, Genie has the unique advantage of running the simulation in real time, allowing students to not only visualize the results of the simulation, but to actually watch the simulation as it runs. This visualization tool helps students understand the fluctuations of allele frequencies in a unique way because they can actually watch the fluctuation of allele frequencies.\newline
+Several other tools currently exist for the purpose of educational instruction in biology. These tools differ greatly in terms of the development technologies used and in terms of usefulness. Genie represents an attempt to develop a unique tool that provides an alternate use case to previously developed tools. One tool that bears some similarities to Genie is RedLynx \cite{redlynx}, a population genetics simulator similarly built using JavaScript. Because RedLynx was developed using JavaScript, and because all computations are subsequently performed on the client, RedLynx is similarly well-suited for use by instructors during lectures and assignments. This implementation allows students to run the simulator in the convenience of a web browser, from any internet-connected computer. RedLynx also similarly tracks the frequency of an allele in a population over many generations, and provide many input parameters that Genie does not use, including the population size, the frequency of the allele, the number of generations, and parameters pertaining to selection \cite{redlynx}. Although Genie does not allow for the customizability that RedLynx provides, Genie has the unique advantage of running the simulation in real time, allowing students to not only visualize the results of the simulation, but to actually watch the simulation as it runs. This visualization tool helps students understand the fluctuations of allele frequencies in a unique way because they can actually watch the fluctuation of allele frequencies.\newline
 \newline
-Another tool for visualizing and simulating genetic processes is Populus. Populus, like RedLynx, provides far greater flexibility than Genie. This flexibility extends not only to the input parameters that can be specified, but also to the types of simulations that can be run. For an instructor looking for a more expansive tool, Populus may be a better choice. However, because of the enormous number of options available, Populus may be more well-suited to be used by instructors during demonstrations than by students during assignments. Unless students thoroughly familiarized themselves with the software before beginning, it is possible that an assignment would require a step-by-step tutorial in order to use the software effectively. Additionally, because Populus is implemented in Java as a .jar file, students would need to have Java installed prior to use. Because Genie can be run in any modern web browser, the vast majority of students will be able to use Genie without any additional preinstalled software.\newline
+Another tool for visualizing and simulating genetic processes is Populus \cite{populus}. Populus, like RedLynx, provides far greater flexibility than Genie. This flexibility extends not only to the input parameters that can be specified, but also to the types of simulations that can be run. For an instructor looking for a more expansive tool, Populus may be a better choice. However, because of the enormous number of options available, Populus may be more well-suited to be used by instructors during demonstrations than by students during assignments. Unless students thoroughly familiarized themselves with the software before beginning, it is possible that an assignment would require a step-by-step tutorial in order to use the software effectively. Additionally, because Populus is implemented in Java as a .jar file, students would need to have Java installed prior to use. Because Genie can be run in any modern web browser, the vast majority of students will be able to use Genie without any additional preinstalled software.\newline
 \newline
-The Darwin project at the University of Connecticut is similarly implemented in Java. However, through the use of Java applets, the simulations are similarly able to be viewed in a web browser. However, despite this ability, Java still needs to be installed on users computers in order for the simulation to run, giving the same limitations described above. Additionally, many browsers now block Java applets from running for security purposes, and the home page for the tool contains a note that "Recent updates to Java mean that the applets only work if you disable Java security." This limitation demonstrates many of the advantages of a JavaScript implementation. While Java updates can sometimes lead to issues of incompatibility, JavaScript is the primarily programming language of web, meaning that JavaScript code is likely to be supported by browsers for many years, reducing the overall maintenance cost of Genie's implementation.
+The Darwin project at the University of Connecticut is similarly implemented in Java \cite{uconn}. However, through the use of Java applets, the simulations are similarly able to be viewed in a web browser. However, despite this ability, Java still needs to be installed on users computers in order for the simulation to run, giving the same limitations described above. Additionally, many browsers now block Java applets from running for security purposes, and the home page for the tool contains a note that ``Recent updates to Java mean that the applets only work if you disable Java security \cite{uconn}." This limitation demonstrates many of the advantages of a JavaScript implementation. While Java updates can sometimes lead to issues of incompatibility, JavaScript is the primarily programming language of web, meaning that JavaScript code is likely to be supported by browsers for many years, reducing the overall maintenance cost of Genie's implementation.
 
 \subsection{Conclusion}
 Genie provides a unique tool to allow instructors to demonstrate concepts, including genetic drift, founder effect, and gene flow, to a large group of students. Additionally, Genie's implementation in JavaScript allows it to be run from virtually any modern computer, giving students the ability to use the tool on their own, to either explore the concepts naturally or to complete assignments. Additionally, because the tool provides few options for students to adjust input parameters, assignments need not include lengthy tutorials or instructions that students need to follow. The primary focus of the tool is visualization in order to improve understanding. By drawing the population in a user's browser while the simulation is ongoing, Genie may allows students to gain a more natural grasp on concepts in population genetics and evolution.
+
+\begin{thebibliography}{9}
+
+\bibitem{redlynx}
+Cartwright, R. (2012, January 1). Red Lynx: Population Genetics Simulator. Retrieved from http://scit.us/redlynx/
+
+\bibitem{moran}
+Ewens, W. (1979). Infinitely Many Alleles Model. In \textit{Mathematical Population Genetics} (2nd ed.). New York City, New York: Springer-Verlag.
+
+\bibitem{colorblind}
+Facts About Color Blindness. (2015, February 1). Retrieved from https://www.nei.nih.gov/health/color\_blindness/facts\_about
+
+\bibitem{uconn}
+Holsinger, K. (1999, September 20). Population Biology Simulations. Retrieved from http://darwin.eeb.uconn.edu/simulations/simulations.html
+
+\bibitem{js}
+Osmani, A. (2012). JavaScript Design Patterns. In \textit{Learning JavaScript Design Patterns} (Vol. 1.6.1). Sebastopol, CA: O'Reilly Media.
+
+\bibitem{populus}
+Populus. (2015, March 19). Retrieved from http://www.cbs.umn.edu/research/resources/populus
+
+\bibitem{genAnalysis}
+Sanders, M., \& Bowman, J. (2012). Population Genetics and Evolution. In \textit{Genetic Analysis: An Integrated Approach} (pp. 751-753, 758-760). Benjamin Cummings.
+
+\bibitem{evolution}
+Zimmer, C., \& Emlen, D. (2013. The Ways of Change. In \textit{Evolution: Making Sense of Life} (pp. 159-165). Greenwood Village, Colorado: Roberts and Company.
+
+\end{thebibliography}
 
 \end{spacing}
 \end{document}
