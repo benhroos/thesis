@@ -205,7 +205,7 @@ var Grid = function() {
 
 		numAllelesOverTime.push([numIntervals, numAlleles]);
 		NumAllelesPlot.update(numAllelesOverTime);
-		AlleleFrequencyPlot.update(alleleFrequencies);
+		AlleleFrequencyPlot.update(alleleFrequencies, numIntervals);
 	};
 
 	var generateStatistics = function() {

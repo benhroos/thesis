@@ -20,8 +20,8 @@ var AlleleFrequencyPlot = (function() {
         });
     }
 
-    function updatePlot(alleleFrequencies) {
-        var gridLength = alleleFrequencies[0].data.length;
+    function updatePlot(alleleFrequencies, numIntervals) {
+        var gridLength = numIntervals;
         var xMin, xMax, maxPan;
         if (gridLength > 100) {
             xMin = gridLength - 100;
