@@ -326,12 +326,6 @@ var Grid = function() {
 		//$("#exportButton").html("<a id='exportLink' href='data:" + data + "' download='data.json'>Export Grid</a>");
 	};
 
-	var handleExportButton = function() {
-		$("#exportButton").click(function() {
-			
-		});
-	};
-
 	var handleBarrier = function() {
 		$(".show-cell").mousedown(function(event) {
 			if (!event.shiftKey) {
@@ -465,7 +459,6 @@ var Grid = function() {
 			cells[index].updateHTML(index);
 		});
 		createExportLink();
-		handleExportButton();
 		handleStartButton();
 		handleResetButton();
 		handleBarrier();
