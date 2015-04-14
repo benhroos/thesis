@@ -1,37 +1,59 @@
 \documentclass[12pt]{article}
 
 %\usepackage{times} %for Times New Roman, if required
-\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry} %adjust margins. TODO: hack to fix large top margin
+\usepackage[top=1in, bottom=1in, left=1.5in, right=1in]{geometry} %adjust margins. TODO: hack to fix large top margin
 \usepackage{setspace} %allows doublespacing, onehalfspacing, singlespacing
 \usepackage{enumitem} %for continuing lists
 \usepackage{titling} %for moving the title
 \usepackage[normalem]{ulem} %for underlining
+\usepackage{geometry}
 \usepackage{graphicx}
 \graphicspath{{images/}}
 
 \begin{document}
 
-\begin{spacing}{.4}
-\setlength{\droptitle}{-7em}
-\title{Genie: A Population Genetics Simulation Built with JavaScript}
-\author{Ben Roos}
-\maketitle
+\newgeometry{top=1.5in, bottom=1in, left=1.5in, right=1in}
+
+\begin{titlepage} %https://www.sharelatex.com/blog/2013/08/09/thesis-series-pt5.html
+    \begin{center}
+        \Huge
+        Genie: A Population Genetics Simulation Built with JavaScript
+        
+        \vspace{0.5cm}
+        \large
+        Ben Roos \\
+        
+        \vspace{1.5cm}
+        
+        APPROVED: \\
+        \vspace{1cm}
+        \underline{Reed Cartwright \hspace{10cm} Director} \\
+        \vspace{1cm}
+        \underline{Melissa Wilson Sayres \hspace{7.4cm} Second Reader} \\
+        \vspace{1cm}
+        \underline{Liam Mayron \hspace{9.5cm} Third Reader}
+        
+        \vspace{4cm}
+        
+        \includegraphics[width=0.4\textwidth]{images/barrett}
+        
+        \Large
+        Biodesign Institute\\
+        Arizona State University\\
+        March 2015
+        
+    \end{center}
+\end{titlepage}
+
+\restoregeometry
 \newpage
-\end{spacing}
 
-\begin{spacing}{1.5}
+\tableofcontents
+\listoffigures
 
-\section*{Table of Contents}
-\begin{enumerate}
-\item Introduction
-\item Model
-\item Implementation
-\item Lesson Plan
-\item Discussion
-
-\end{enumerate}
 \newpage
 
+\begin{spacing}{1.6}
 \section{Introduction}
 
 Web development technologies, and in particular the programming language JavaScript, present a unique opportunity for creating computationally complex educational tools. In many educational settings, it may be useful to develop a tool that allows instructors to demonstrate concepts visually or that allows students to investigate a concept naturally. However, when dealing with certain fields of study, such tools would need to conduct computational simulations. One such field is biology, in which concepts from population genetics and evolution may benefit from programmed stochastic simulations in order to demonstrate certain concepts, such as genetic drift and gene flow, in real time. Given ongoing improvements to modern web browsers and development technologies, programmers can now develop web applications that demonstrate computationally intensive simulations as they run. A web application was developed to demonstrate several concepts from population genetics and evolution, including genetic drift, gene flow, founder effects, and mutations. This application conducts a real time simulation of the change in allele frequencies in a finite population of spatially isolated individuals. Using colors, the application allows students to visualize changes in a population over time and understand how those visual changes translate to fluctuations in allele frequency and, eventually, allele fixation.
@@ -218,6 +240,8 @@ The Darwin project at the University of Connecticut is similarly implemented in 
 
 \subsection{Conclusion}
 Genie provides a unique tool to allow instructors to demonstrate concepts, including genetic drift, founder effect, and gene flow, to a large group of students. Additionally, Genie's implementation in JavaScript allows it to be run from virtually any modern computer, giving students the ability to use the tool on their own, to either explore the concepts naturally or to complete assignments. Additionally, because the tool provides few options for students to adjust input parameters, assignments need not include lengthy tutorials or instructions that students need to follow. The primary focus of the tool is visualization in order to improve understanding. By drawing the population in a user's browser while the simulation is ongoing, Genie may allows students to gain a more natural grasp on concepts in population genetics and evolution.
+
+\newpage
 
 \begin{thebibliography}{9}
 
