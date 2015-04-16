@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 APR 2015 17:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  16 APR 2015 13:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -282,157 +282,144 @@ Package pdftex.def Info: images/barrett.png used on input line 38.
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./image
 s/barrett.png>] (./Thesis Report.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 3.
+(Font)              <12> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 3.
+(Font)              <8> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 3.
+(Font)              <6> on input line 4.
 )
 \tf@toc=\write3
 \openout3 = `"Thesis Report.toc"'.
 
- (./Thesis Report.lof)
+ (./Thesis Report.lof [1
+
+])
 \tf@lof=\write4
 \openout4 = `"Thesis Report.lof"'.
 
- [1
-
-]
-Overfull \hbox (8.13652pt too wide) in paragraph at lines 59--60
+ [2]
+Overfull \hbox (8.13652pt too wide) in paragraph at lines 64--65
 \OT1/cmr/m/n/12 Web de-vel-op-ment tech-nolo-gies, and in par-tic-u-lar the pro
 -gram-ming lan-guage JavaScript,
  []
 
-[2] [3] <images/layout.jpeg, id=22, 1067.99pt x 639.38875pt>
+[3] [4] <images/layout.jpeg, id=25, 1067.99pt x 639.38875pt>
 File: images/layout.jpeg Graphic file (type jpg)
 
 <use images/layout.jpeg>
-Package pdftex.def Info: images/layout.jpeg used on input line 82.
+Package pdftex.def Info: images/layout.jpeg used on input line 87.
 (pdftex.def)             Requested size: 427.18845pt x 255.75096pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[4] [5 <./images/layout.jpeg>]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 101
+ [5] [6 <./images/layout.jpeg>] [7]
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 106
 .
-LaTeX Font Info:    No file OMScmtt.fd. on input line 101.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 106.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 101.
+(Font)              for symbol `textbraceleft' on input line 106.
 
 
-Overfull \hbox (52.49458pt too wide) in paragraph at lines 101--102
+Overfull \hbox (52.49458pt too wide) in paragraph at lines 106--107
 \OT1/cmr/m/n/12 of the JSON ob-ject is  \OMS/cmtt/m/n/12 f\OT1/cmtt/m/n/12 cell
 s:[\OMS/cmtt/m/n/12 f\OT1/cmtt/m/n/12 color:hex[]val,allele:[-2, MAXINT),mutati
 onNumber:[0,
  []
 
-[6] <images/block-diagram.jpg, id=35, 835.12pt x 579.16376pt>
+<images/block-diagram.jpg, id=36, 835.12pt x 579.16376pt>
 File: images/block-diagram.jpg Graphic file (type jpg)
 
 <use images/block-diagram.jpg>
-Package pdftex.def Info: images/block-diagram.jpg used on input line 111.
+Package pdftex.def Info: images/block-diagram.jpg used on input line 116.
 (pdftex.def)             Requested size: 417.55898pt x 289.58116pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/control-panel-class-diagram.jpg, id=36, 202.7575pt x 174.6525pt>
+ [8]
+<images/control-panel-class-diagram.jpg, id=42, 202.7575pt x 174.6525pt>
 File: images/control-panel-class-diagram.jpg Graphic file (type jpg)
 
 <use images/control-panel-class-diagram.jpg>
 Package pdftex.def Info: images/control-panel-class-diagram.jpg used on input l
-ine 119.
+ine 124.
 (pdftex.def)             Requested size: 101.3785pt x 87.32603pt.
- [7]
-<images/grid-class-diagram.jpg, id=40, 202.7575pt x 498.86375pt>
+ [9 <./images/block-diagram.jpg>]
+<images/grid-class-diagram.jpg, id=46, 202.7575pt x 498.86375pt>
 File: images/grid-class-diagram.jpg Graphic file (type jpg)
 
 <use images/grid-class-diagram.jpg>
-Package pdftex.def Info: images/grid-class-diagram.jpg used on input line 137.
+Package pdftex.def Info: images/grid-class-diagram.jpg used on input line 142.
 (pdftex.def)             Requested size: 101.3785pt x 249.43126pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--139
+Underfull \hbox (badness 10000) in paragraph at lines 128--144
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--139
+Underfull \hbox (badness 10000) in paragraph at lines 128--144
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--139
+Underfull \hbox (badness 10000) in paragraph at lines 128--144
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--139
+Underfull \hbox (badness 10000) in paragraph at lines 128--144
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--139
+Underfull \hbox (badness 10000) in paragraph at lines 128--144
 
  []
 
-[8 <./images/block-diagram.jpg> <./images/control-panel-class-diagram.jpg>]
-[9] <images/plot-class-diagram.jpg, id=47, 232.87pt x 187.70125pt>
+[10 <./images/control-panel-class-diagram.jpg>] [11]
+<images/plot-class-diagram.jpg, id=53, 232.87pt x 187.70125pt>
 File: images/plot-class-diagram.jpg Graphic file (type jpg)
 
 <use images/plot-class-diagram.jpg>
-Package pdftex.def Info: images/plot-class-diagram.jpg used on input line 145.
+Package pdftex.def Info: images/plot-class-diagram.jpg used on input line 150.
 (pdftex.def)             Requested size: 116.43471pt x 93.85039pt.
- [10 <./images/grid-class-diagram.jpg>]
-<images/cell-class-diagram.jpg, id=51, 202.7575pt x 148.555pt>
-File: images/cell-class-diagram.jpg Graphic file (type jpg)
-
-<use images/cell-class-diagram.jpg>
-Package pdftex.def Info: images/cell-class-diagram.jpg used on input line 153.
-(pdftex.def)             Requested size: 101.3785pt x 74.27731pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/sequence-diagram.jpg, id=52, 752.8125pt x 606.265pt>
+<images/cell-class-diagram.jpg, id=54, 202.7575pt x 148.555pt>
+File: images/cell-class-diagram.jpg Graphic file (type jpg)
+
+<use images/cell-class-diagram.jpg>
+Package pdftex.def Info: images/cell-class-diagram.jpg used on input line 158.
+(pdftex.def)             Requested size: 101.3785pt x 74.27731pt.
+ [12 <./images/grid-class-diagram.jpg>]
+<images/sequence-diagram.jpg, id=59, 752.8125pt x 606.265pt>
 File: images/sequence-diagram.jpg Graphic file (type jpg)
 
 <use images/sequence-diagram.jpg>
-Package pdftex.def Info: images/sequence-diagram.jpg used on input line 161.
+Package pdftex.def Info: images/sequence-diagram.jpg used on input line 166.
 (pdftex.def)             Requested size: 376.40532pt x 303.13176pt.
- [11 <./images/plot-class-diagram.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 166--175
+ [13 <./images/plot-class-diagram.jpg> <./images/cell-class-diagram.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 171--180
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--175
+Underfull \hbox (badness 10000) in paragraph at lines 171--180
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--175
+Underfull \hbox (badness 10000) in paragraph at lines 171--180
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--175
+Underfull \hbox (badness 10000) in paragraph at lines 171--180
 
  []
 
-[12 <./images/cell-class-diagram.jpg> <./images/sequence-diagram.jpg>] [13]
-[14] [15]
-Overfull \hbox (0.21024pt too wide) in paragraph at lines 199--200
+[14 <./images/sequence-diagram.jpg>] [15] [16] [17]
+Overfull \hbox (0.21024pt too wide) in paragraph at lines 204--205
 []\OT1/cmr/bx/n/12 Learning ob-jec-tive: stu-dents will iden-tify the fu-ture i
 m-pact of founder
- []
-
-[16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 231--234
-
  []
 
 [18] [19]
@@ -440,28 +427,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 236--239
 
  []
 
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 241--244
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--246
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 246--251
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--246
+Underfull \hbox (badness 10000) in paragraph at lines 246--251
 
  []
 
-[20] [21] [22]
-Underfull \hbox (badness 10000) in paragraph at lines 267--268
+[22] [23] [24]
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
 []\OT1/cmr/m/n/12 Facts About Color Blind-ness. (2015, Febru-ary 1). Re-trieved
  from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
+Underfull \hbox (badness 10000) in paragraph at lines 290--291
 []\OT1/cmr/m/n/12 Populus. (2015, March 19). Re-trieved from
  []
 
-[23] [24] (./Thesis Report.aux)
+[25] [26] (./Thesis Report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -481,10 +473,10 @@ usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
 r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
 /local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/
 local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on "Thesis Report.pdf" (25 pages, 439429 bytes).
+Output written on "Thesis Report.pdf" (27 pages, 441447 bytes).
 PDF statistics:
- 123 PDF objects out of 1000 (max. 8388607)
- 79 compressed objects within 1 object stream
+ 129 PDF objects out of 1000 (max. 8388607)
+ 83 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
